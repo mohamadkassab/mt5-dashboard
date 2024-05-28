@@ -54,6 +54,25 @@ const ConfigurationsDataTable = () => {
   }, [dispatch, refresh]);
   // End relative variables
 
+  
+  const columnsDiv = columns.map((item, index) => {
+    const columnProps = {
+      key: index,
+      dataField: item.dataField,
+      caption: item.caption,
+      alignment: item.alignment,
+    };
+    if (item.cellRender) {
+      columnProps.cellRender = item.cellRender;
+    }
+    if (item.width) {
+      columnProps.width = item.width;
+    }
+    if(!item.hideColumn){
+      return <Column {...columnProps}></Column>;
+    }
+  });
+
   const onExporting = (e) => {
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet("Main sheet");
@@ -186,72 +205,8 @@ const ConfigurationsDataTable = () => {
           <ColumnChooser enabled={false} mode="select" />
           <Sorting mode="multiple" />
 
-          <Column
-            dataField={columns[0].dataField}
-            caption={columns[0].caption}
-            alignment={columns[0].alignment}
-            width={30}
-          ></Column>
+          {columnsDiv}
 
-          <Column
-            dataField={columns[1].dataField}
-            caption={columns[1].caption}
-            alignment={columns[1].alignment}
-          ></Column>
-
-          <Column
-            dataField={columns[2].dataField}
-            caption={columns[2].caption}
-            alignment={columns[2].alignment}
-          ></Column>
-
-          <Column
-            dataField={columns[3].dataField}
-            caption={columns[3].caption}
-            alignment={columns[3].alignment}
-          ></Column>
-                 <Column
-            dataField={columns[4].dataField}
-            caption={columns[4].caption}
-            alignment={columns[4].alignment}
-          ></Column>
-                 <Column
-            dataField={columns[5].dataField}
-            caption={columns[5].caption}
-            alignment={columns[5].alignment}
-          ></Column>
-                 <Column
-            dataField={columns[6].dataField}
-            caption={columns[6].caption}
-            alignment={columns[6].alignment}
-          ></Column>
-                 <Column
-            dataField={columns[7].dataField}
-            caption={columns[7].caption}
-            alignment={columns[7].alignment}
-          ></Column>
-                 <Column
-            dataField={columns[8].dataField}
-            caption={columns[8].caption}
-            alignment={columns[8].alignment}
-          ></Column>
-                 <Column
-            dataField={columns[9].dataField}
-            caption={columns[9].caption}
-            alignment={columns[9].alignment}
-          ></Column>
-                 <Column
-            dataField={columns[10].dataField}
-            caption={columns[10].caption}
-            alignment={columns[10].alignment}
-          ></Column>
-
-          <Column
-            dataField={columns[11].dataField}
-            caption={columns[11].caption}
-            alignment={columns[11].alignment}
-            cellRender={booleanCellRender}
-          ></Column>
           <Column
             caption="Action"
             alignment="center"

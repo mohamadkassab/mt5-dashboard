@@ -54,6 +54,24 @@ const AdminsDataTable = () => {
   }, [dispatch, refresh]);
   // End relative variables
 
+  const columnsDiv = columns.map((item, index) => {
+    const columnProps = {
+      key: index,
+      dataField: item.dataField,
+      caption: item.caption,
+      alignment: item.alignment,
+    };
+    if (item.cellRender) {
+      columnProps.cellRender = item.cellRender;
+    }
+    if (item.width) {
+      columnProps.width = item.width;
+    }
+    if(!item.hideColumn){
+      return <Column {...columnProps}></Column>;
+    }
+  });
+
   const onExporting = (e) => {
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet("Main sheet");
@@ -186,37 +204,7 @@ const AdminsDataTable = () => {
           <ColumnChooser enabled={false} mode="select" />
           <Sorting mode="multiple" />
 
-          <Column
-            dataField={columns[0].dataField}
-            caption={columns[0].caption}
-            alignment={columns[0].alignment}
-            width={30}
-          ></Column>
-
-          <Column
-            dataField={columns[1].dataField}
-            caption={columns[1].caption}
-            alignment={columns[1].alignment}
-          ></Column>
-
-          <Column
-            dataField={columns[2].dataField}
-            caption={columns[2].caption}
-            alignment={columns[2].alignment}
-          ></Column>
-
-          <Column
-            dataField={columns[3].dataField}
-            caption={columns[3].caption}
-            alignment={columns[3].alignment}
-          ></Column>
-
-          <Column
-            dataField={columns[4].dataField}
-            caption={columns[4].caption}
-            alignment={columns[4].alignment}
-            cellRender={booleanCellRender}
-          ></Column>
+          {columnsDiv}
           <Column
             caption="Action"
             alignment="center"

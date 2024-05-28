@@ -27,6 +27,12 @@ import {
   GET_PERMISSION_REQUEST,
   GET_PERMISSION_SUCCESS,
   GET_PERMISSION_FAILURE,
+  GET_SYMBOL_REQUEST,
+  GET_SYMBOL_SUCCESS,
+  GET_SYMBOL_FAILURE,
+  GET_GROUP_REQUEST,
+  GET_GROUP_SUCCESS,
+  GET_GROUP_FAILURE,
 } from "./ActionTypes";
 import produce from "immer";
 import { ATFXTOKEN } from "../constants/Constants";
@@ -38,6 +44,8 @@ const initialState = {
   types: [],
   permissions: [],
   configurations: [],
+  symbols: [],
+  groups: [],
   isAuthenticated: localStorage.getItem(ATFXTOKEN) || false,
   loading: false,
   success: false,
@@ -188,6 +196,40 @@ const reducer = produce((draft, action) => {
       break;
     case GET_PERMISSION_FAILURE:
       draft.permissions = [];
+      draft.error = true;
+      draft.loading = false;
+      break;
+    
+    // SYMBOLS
+    case GET_SYMBOL_REQUEST:
+      draft.symbols = [];
+      draft.error = false;
+      draft.loading = true;
+      break;
+    case GET_SYMBOL_SUCCESS:
+      draft.symbols = action.payload.map((item) => item);
+      draft.error = false;
+      draft.loading = false;
+      break;
+    case GET_SYMBOL_FAILURE:
+      draft.symbols = [];
+      draft.error = true;
+      draft.loading = false;
+      break;
+      
+    // GROUPS
+    case GET_GROUP_REQUEST:
+      draft.groups = [];
+      draft.error = false;
+      draft.loading = true;
+      break;
+    case GET_GROUP_SUCCESS:
+      draft.groups = action.payload.map((item) => item);
+      draft.error = false;
+      draft.loading = false;
+      break;
+    case GET_GROUP_FAILURE:
+      draft.groups = [];
       draft.error = true;
       draft.loading = false;
       break;

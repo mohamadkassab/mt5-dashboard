@@ -11,26 +11,25 @@ import DataGrid, {
   Export,
   Selection,
 } from "devextreme-react/data-grid";
+import { Button } from "@mui/material";
+import { saveAs } from "file-saver-es";
+import { Workbook } from "exceljs";
+import { exportDataGrid } from "devextreme/excel_exporter";
+import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ConfirmDialaog from "../common/ConfirmDialaog";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import { Button } from "@mui/material";
-import { saveAs } from "file-saver-es";
-import { Workbook } from "exceljs";
-import { exportDataGrid } from "devextreme/excel_exporter";
-import { booleanCellRender } from "../cellRendering/CellRendering";
-import { useDispatch, useSelector } from "react-redux";
 
 // Start relative variables
-import { GetPermissions, DeletePermission } from "../../utils/redux/actions/Permissions";
-import {PermissionDataColumns, ROWS_PER_PAGE} from "../../utils/constants/Constants";
-import PermissionsCreateForm from "../forms/permissions/PermissionsCreateForm";
-import PermissionsEditForm from "../forms/permissions/PermissionsEditForm";
+import { GetGroups } from "../../utils/redux/actions/Groups";
+import {GroupDataColumns, ROWS_PER_PAGE} from "../../utils/constants/Constants";
+// import SymbolsCreateForm from "../forms/types/TypesCreateForm";
+// import SymbolsEditForm from "../forms/types/TypesEditForm";
 // End relative variables
 
-const PermissionsDataTable = () => {
+const GroupsDataTable = () => {
   const allowedPageSizes = ROWS_PER_PAGE;
   const dispatch = useDispatch();
   const error = useSelector((state) => state.error);
@@ -40,16 +39,16 @@ const PermissionsDataTable = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [createForm, setCreateForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
-  const confirmDeleteSentece = "Are you sure you want to delete this permission";
-  
+  const confirmSentece = "Are you sure you want to delete this email";
+
   // Start relative variables
   const [itemToDelete, setItemToDelete] = useState("");
-  const data = useSelector((state) => state.permissions);
-  const columns = PermissionDataColumns;
+  const data = useSelector((state) => state.groups);
+  const columns = GroupDataColumns;
 
   useEffect(() => {
     if(!error){
-      dispatch(GetPermissions());
+      dispatch(GetGroups());
     }
   }, [dispatch, refresh]);
   // End relative variables
@@ -113,13 +112,12 @@ const PermissionsDataTable = () => {
 
   const onDeleting = (data) => {
     setIdToDelete(data.id);
-    setItemToDelete(data.permission); 
-    console.log(data); // Relative variables
+    setItemToDelete(data.type_name);   // Relative variables
     setShowConfirmDialog(true);
   };
 
   const onDelete = async () => {
-    await dispatch(DeletePermission(idToDelete));
+    // await dispatch(DeleteType(idToDelete));
     refreshPage();
   };
 
@@ -132,28 +130,30 @@ const PermissionsDataTable = () => {
     setCreateForm(true);
   };
 
+
+
   return (
     <div>
       {showConfirmDialog && (
         <ConfirmDialaog
           confirmDelete={confirmDelete}
-          confirmSentece={confirmDeleteSentece}
+          confirmSentece={confirmSentece}
           data={itemToDelete}
         />
       )}
-      {createForm && (
-        <PermissionsCreateForm
+      {/* {createForm && (
+        <TypesCreateForm
           createFormVisibility={createFormVisibility}
           refreshPage={refreshPage}
         />
       )}
       {editForm && (
-        <PermissionsEditForm
+        <TypesEditForm
           editFormVisibility={editFormVisibility}
           data={dataToBeEdited}
           refreshPage={refreshPage}
         />
-      )}
+      )} */}
 
 <div className={`${createForm ? "blur-sm" : ""}${editForm ? "blur-sm" : ""}`}>
         <div className="flex justify-end">
@@ -206,9 +206,9 @@ const PermissionsDataTable = () => {
           <ColumnChooser enabled={false} mode="select" />
           <Sorting mode="multiple" />
 
+       
         {columnsDiv}
-
-         
+ 
           <Column
             caption="Action"
             alignment="center"
@@ -238,4 +238,4 @@ const PermissionsDataTable = () => {
     </div>
   );
 };
-export default PermissionsDataTable;
+export default GroupsDataTable;
