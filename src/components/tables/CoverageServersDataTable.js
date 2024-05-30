@@ -7,13 +7,13 @@ import CreateButton from '../common/CreateButton';
 import DataGridTable from '../common/DataGridTable';
 
 // Start relative variables
-import { GetPermissions, DeletePermission } from "../../utils/redux/actions/Permissions";
-import {PermissionDataColumns, ROWS_PER_PAGE} from "../../utils/constants/Constants";
-import PermissionsCreateForm from "../forms/permissions/PermissionsCreateForm";
-import PermissionsEditForm from "../forms/permissions/PermissionsEditForm";
+import { GetCoverageServers, DeleteCoverageServer } from "../../utils/redux/actions/CoverageServers";
+import {CoverageServerDataColumns, ROWS_PER_PAGE} from "../../utils/constants/Constants";
+import CoverageServersCreateForm from "../forms/coverageServers/CoverageServersCreateForm";
+import CoverageServersEditForm from "../forms/coverageServers/CoverageServersEditForm";
 // End relative variables
 
-const PermissionsDataTable = () => {
+const CoverageServersDataTable = () => {
   const allowedPageSizes = ROWS_PER_PAGE;
   const dispatch = useDispatch();
   const error = useSelector((state) => state.error);
@@ -23,27 +23,30 @@ const PermissionsDataTable = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [createForm, setCreateForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
-  const confirmDeleteSentece = "Are you sure you want to delete this permission";
+  const confirmDeleteSentece = "Are you sure you want to delete this coverage server";
   const location = useLocation();
   // Start relative variables
   const [itemToDelete, setItemToDelete] = useState("");
-  const data = useSelector((state) => state.permissions);
-  const columns = PermissionDataColumns;
+  const data = useSelector((state) => state.coverageServers);
+  const columns = CoverageServerDataColumns;
 
   useEffect(() => {
     if(!error){
-      dispatch(GetPermissions());
+      dispatch(GetCoverageServers());
     }
   }, [dispatch, refresh]);
 
+
   const onDeleting = (data) => {
     setIdToDelete(data.id);
-    setItemToDelete(data.permission);  // Relative variables
+    setItemToDelete(data.name);  // Relative variables
     setShowConfirmDialog(true);
   };
+
   // End relative variables
 
- 
+
+
   const onExporting = (e) => {
     const fileName =  location.pathname;
     ExportXlsx(e, fileName);
@@ -73,7 +76,7 @@ const PermissionsDataTable = () => {
 
 
   const onDelete = async () => {
-    await dispatch(DeletePermission(idToDelete));
+    await dispatch(DeleteCoverageServer(idToDelete));
     refreshPage();
   };
 
@@ -96,27 +99,29 @@ const PermissionsDataTable = () => {
         />
       )}
       {createForm && (
-        <PermissionsCreateForm
+        <CoverageServersCreateForm
           createFormVisibility={createFormVisibility}
           refreshPage={refreshPage}
         />
       )}
       {editForm && (
-        <PermissionsEditForm
+        <CoverageServersEditForm
           editFormVisibility={editFormVisibility}
           data={dataToBeEdited}
           refreshPage={refreshPage}
         />
       )}
 
-<div className={`${createForm ? "blur-sm" : ""}${editForm ? "blur-sm" : ""}`}>
+      <div className={`${createForm ? "blur-sm" : ""}${editForm ? "blur-sm" : ""}`}>
         <div className="flex justify-end">
-        <CreateButton onClick={onInserting}/>
-        </div>
 
+        <CreateButton onClick={onInserting}/>
+          
+        </div>
         <DataGridTable data={data}  onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
+
       </div>
     </div>
   );
 };
-export default PermissionsDataTable;
+export default CoverageServersDataTable;

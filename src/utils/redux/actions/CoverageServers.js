@@ -1,29 +1,28 @@
 import axios from "axios";
 import {
-  API_ADMIN,
-  API_ADMIN_EDIT,
+  API_COVERAGESERVER,
   ATFXTOKEN,
   GLOBAL_REQUEST_TIMEOUT,
 } from "../../constants/Constants";
 import {
-  GET_ADMIN_REQUEST,
-  GET_ADMIN_SUCCESS,
-  GET_ADMIN_FAILURE,
+  GET_COVERAGESERVER_REQUEST,
+  GET_COVERAGESERVER_SUCCESS,
+  GET_COVERAGESERVER_FAILURE,
   SEL_REQUEST,
   SEL_SUCCESS,
   SEL_FAILURE,
   ISAUTHENTICATED_FAILURE,
 } from "../ActionTypes";
 
-export const GetAdmins = () => {
+export const GetCoverageServers = () => {
   return async (dispatch) => {
     try {
-      dispatch({ type: GET_ADMIN_REQUEST });
+      dispatch({ type: GET_COVERAGESERVER_REQUEST });
       const apiIp = process.env.REACT_APP_API_IP;
       const apiPort = process.env.REACT_APP_API_PORT;
       const authorizationToken = localStorage.getItem(ATFXTOKEN);
 
-      const response = await axios.get(`${apiIp}:${apiPort}${API_ADMIN}`, {
+      const response = await axios.get(`${apiIp}:${apiPort}${API_COVERAGESERVER}`, {
         headers: {
           Authorization: `${authorizationToken}`,
         },
@@ -34,7 +33,7 @@ export const GetAdmins = () => {
 
       if (status >= 200 && status < 300) {
         const data = JSON.parse(response.data);
-        dispatch({ type: GET_ADMIN_SUCCESS, payload: data });
+        dispatch({ type: GET_COVERAGESERVER_SUCCESS, payload: data });
       } else if (status === 401) {
         dispatch({ type: ISAUTHENTICATED_FAILURE });
       } else {
@@ -45,12 +44,12 @@ export const GetAdmins = () => {
         message: error.message,
         code: error.code,
       };
-      dispatch({ type: GET_ADMIN_FAILURE, payload: errorPayload });
+      dispatch({ type: GET_COVERAGESERVER_FAILURE, payload: errorPayload });
     }
   };
 };
 
-export const CreateAdmin = (params) => {
+export const CreateCoverageServer = (params) => {
   return async (dispatch) => {
     try {
       dispatch({ type: SEL_REQUEST });
@@ -58,7 +57,7 @@ export const CreateAdmin = (params) => {
       const apiPort = process.env.REACT_APP_API_PORT;
       const authorizationToken = localStorage.getItem(ATFXTOKEN);
       const response = await axios.post(
-        `${apiIp}:${apiPort}${API_ADMIN}`,
+        `${apiIp}:${apiPort}${API_COVERAGESERVER}`,
         params,
         {
           headers: {
@@ -88,7 +87,7 @@ export const CreateAdmin = (params) => {
   };
 };
 
-export const EditAdmin = (params) => {
+export const EditCoverageServer = (params) => {
   return async (dispatch) => {
     try {
       dispatch({ type: SEL_REQUEST });
@@ -97,7 +96,7 @@ export const EditAdmin = (params) => {
       const authorizationToken = localStorage.getItem(ATFXTOKEN);
       const {id, ...restParams} = params;
       const response = await axios.put(
-        `${apiIp}:${apiPort}${API_ADMIN_EDIT}${id}`,
+        `${apiIp}:${apiPort}${API_COVERAGESERVER}${id}`,
         restParams,
         {
           headers: {
@@ -128,7 +127,7 @@ export const EditAdmin = (params) => {
   };
 };
 
-export const DeleteAdmin = (params) => {
+export const DeleteCoverageServer = (params) => {
   return async (dispatch) => {
     try {
       dispatch({ type: SEL_REQUEST });
@@ -136,7 +135,7 @@ export const DeleteAdmin = (params) => {
       const apiPort = process.env.REACT_APP_API_PORT;
       const authorizationToken = localStorage.getItem(ATFXTOKEN);
       const response = await axios.delete(
-        `${apiIp}:${apiPort}${API_ADMIN}${params}`,
+        `${apiIp}:${apiPort}${API_COVERAGESERVER}${params}`,
 
         {
           headers: {

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Menu, MT5 } from "./utils/constants/Constants";
+import { Menu, MT5Menu } from "./utils/constants/Constants";
 import ControlCenter from "./pages/ControlCenter";
 import ProtectedRoute from "./utils/protectedRoute/ProtectedRoute";
 
@@ -20,9 +20,6 @@ const theme = createTheme({
   },
 });
 
-
-
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -33,12 +30,12 @@ function App() {
             <Route path={Menu[0].path} element={<Dashboard />} />
             <Route path={Menu[1].path} element={<ControlCenter />} />
             <Route path={Menu[2].path} element={<ControlCenter />} />
-            <Route path={MT5[0].path} element={<ControlCenter />} />
-            <Route path={MT5[1].path} element={<ControlCenter />} />
-            <Route path={MT5[2].path} element={<ControlCenter />} />
-            <Route path={MT5[3].path} element={<ControlCenter />} />
-            <Route path={MT5[4].path} element={<ControlCenter />} />
-            <Route path={MT5[5].path} element={<ControlCenter />} />
+            <Route path={MT5Menu[0].path} element={<ControlCenter />} />
+            <Route path={MT5Menu[1].path} element={<ControlCenter />} />
+            <Route path={MT5Menu[2].path} element={<ControlCenter />} />
+            <Route path={MT5Menu[3].path} element={<ControlCenter />} />
+            <Route path={MT5Menu[4].path} element={<ControlCenter />} />
+            <Route path={MT5Menu[5].path} element={<ControlCenter />} />
           </Route>
         </Routes>
       </BrowserRouter>

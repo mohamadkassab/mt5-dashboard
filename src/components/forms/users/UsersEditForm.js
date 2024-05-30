@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import generatePassword from "random-password";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import FormContainer from "../../common/FormContainer";
 import {
   VisibilityOff,
   Visibility,
@@ -9,10 +10,7 @@ import {
 import {
   TextField,
   Button,
-  Container,
   Typography,
-  Box,
-  Paper,
   Select,
   MenuItem,
   FormControlLabel,
@@ -102,28 +100,7 @@ const UsersEditForm = ({ editFormVisibility, data, refreshPage }) => {
   }, [success]);
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        bgcolor: "rgba(255, 255, 255, 1)",
-        p: 3,
-        borderRadius: 1,
-        boxShadow: 3,
-        zIndex: 10,
-      }}
-      component={Paper}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+    <FormContainer>
         <Typography variant="h4" component="h1" gutterBottom>
           {formTitle}
         </Typography>
@@ -238,8 +215,7 @@ const UsersEditForm = ({ editFormVisibility, data, refreshPage }) => {
             </Button>
           </div>
         </form>
-      </Box>
-    </Container>
+        </FormContainer>
   );
 };
 

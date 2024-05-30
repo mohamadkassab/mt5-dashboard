@@ -12,31 +12,34 @@ export const ROWS_PER_PAGE = [10, 15, 30];
 // AUTH
 export const API_ADMIN_LOGIN = "/admins/login/";
 
-// ADMINS
+// ADMIN
 export const API_ADMIN = "/admins/admins/";
 export const API_ADMIN_EDIT = "/admins/admin/";
 
-// USERS
+// USER
 export const API_USER = "/admins/users/";
 export const API_USER_EDIT = "/admins/user/";
 
-// ROLES
+// ROLE
 export const API_ROLE = "/admins/roles/";
 
-// TYPES
+// TYPE
 export const API_TYPE = "/admins/user_types/";
 
-// CONFIGURATIONS
+// CONFIGURATION
 export const API_CONFIGURATION = "/admins/configurations/";
 
-// PERMISSIONS
-export const API_PERMISSIONS = "/admins/permissions/";
+// PERMISSION
+export const API_PERMISSION = "/admins/permissions/";
 
-// SYMBOLS
-export const API_SYMBOLS = "/admins/MT5Symbols/";
+// MANAGER
+export const API_MANAGER = "/admins/MT5ManagersAdmin/";
 
-// GROUPS
-export const API_GROUPS = "/admins/MT5Groups/";
+// MT5MANAGER
+export const API_MT5MANAGER = "/admins/MT5AllManagers/";
+
+// COVERAGESERVER
+export const API_COVERAGESERVER = "/admins/MT5CoverageServerAdmin/";
 
 export const Menu = [
   {
@@ -56,47 +59,47 @@ export const Menu = [
   },
 ];
 
-export const MT5 = [
+export const MT5Menu = [
   {
     name: "Configurations",
     path: "/configurations",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 24, height: 24 }}>C</Avatar>
+      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>C</Avatar>
     ),
   },
   {
-    name: "Groups",
-    path: "/groups",
+    name: "Coverage Servers",
+    path: "/coverageServers",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 24, height: 24 }}>G</Avatar>
+      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>CS</Avatar>
+    ),
+  },
+  {
+    name: "Managers",
+    path: "/managers",
+    icon: (
+      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>MA</Avatar>
     ),
   },
   {
     name: "Permissions",
     path: "/permissions",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 24, height: 24 }}>P</Avatar>
+      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>P</Avatar>
     ),
   },
   {
     name: "Roles",
     path: "/roles",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 24, height: 24 }}>R</Avatar>
-    ),
-  },
-  {
-    name: "Symbols",
-    path: "/symbols",
-    icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 24, height: 24 }}>S</Avatar>
+      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>R</Avatar>
     ),
   },
   {
     name: "Types",
     path: "/types",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 24, height: 24 }}>T</Avatar>
+      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>T</Avatar>
     ),
   },
 ];
@@ -106,18 +109,19 @@ export const AdminDataColumns = [
     dataField: "id",
     caption: "Id",
     alignment: "left",
-    width: 30,
+    hideColumn: true,
   },
   {
     dataField: "email",
     caption: "Email",
-    alignment: "left",
+    alignment: "center",
   },
 
   {
     dataField: "role_id",
     caption: "Role Id",
     alignment: "center",
+    hideColumn: true,
   },
 
   {
@@ -131,7 +135,6 @@ export const AdminDataColumns = [
     caption: "Is Active",
     alignment: "center",
     cellRender: booleanCellRender,
-
   },
 
   {
@@ -147,17 +150,19 @@ export const UserDataColumns = [
     dataField: "id",
     caption: "Id",
     alignment: "left",
+    hideColumn: true,
   },
   {
     dataField: "email",
     caption: "Email",
-    alignment: "left",
+    alignment: "center",
   },
 
   {
     dataField: "type_id",
     caption: "Type Id",
     alignment: "center",
+    hideColumn: true,
   },
 
   {
@@ -186,16 +191,17 @@ export const ConfigurationDataColumns = [
     dataField: "id",
     caption: "Id",
     alignment: "center",
+    hideColumn: true,
   },
   {
     dataField: "db_host",
     caption: "Db Host",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "db_username",
     caption: "Db Username",
-    alignment: "left",
+    alignment: "center",
   },
 
   {
@@ -233,7 +239,7 @@ export const ConfigurationDataColumns = [
   },
   {
     dataField: "mt5_password",
-    caption: "Mt5 Password",
+    caption: "Mt5 Web Password",
     alignment: "center",
   },
   {
@@ -259,6 +265,7 @@ export const PermissionDataColumns = [
     dataField: "id",
     caption: "Id",
     alignment: "left",
+    hideColumn: true,
   },
   {
     dataField: "permission_code",
@@ -278,6 +285,7 @@ export const RoleDataColumns = [
     dataField: "id",
     caption: "Id",
     alignment: "left",
+    hideColumn: true,
   },
   {
     dataField: "role_name",
@@ -286,11 +294,12 @@ export const RoleDataColumns = [
   },
 ];
 
-export const SymbolDataColumns = [
+export const MT5SymbolDataColumns = [
   {
     dataField: "Symbol_ID",
     caption: "Symbol Id",
     alignment: "left",
+    hideColumn: true,
   },
   {
     dataField: "Path",
@@ -793,87 +802,87 @@ export const SymbolDataColumns = [
   {
     dataField: "IESlipLosing",
     caption: "IESlipLosing",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "IEVolumeMaxExt",
     caption: "IEVolumeMaxExt",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "PriceSettle",
     caption: "PriceSettle",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "PriceLimitMax",
     caption: "PriceLimitMax",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "PriceLimitMin",
     caption: "PriceLimitMin",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "PriceStrike",
     caption: "PriceStrike",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "OptionMode",
     caption: "OptionMode",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "FaceValue",
     caption: "FaceValue",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "AccruedInterest",
     caption: "AccruedInterest",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "SpliceType",
     caption: "SpliceType",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "SpliceTimeType",
     caption: "SpliceTimeType",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "SpliceTimeDays",
     caption: "SpliceTimeDays",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "VolumeMin",
     caption: "VolumeMin",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "VolumeMax",
     caption: "VolumeMax",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "VolumeStep",
     caption: "VolumeStep",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "VolumeLimit",
     caption: "VolumeLimit",
-    alignment: "left",
+    alignment: "center",
   },
   {
     dataField: "IEVolumeMax",
     caption: "IEVolumeMax",
-    alignment: "left",
+    alignment: "center",
   },
 ];
 
@@ -882,6 +891,7 @@ export const TypeDataColumns = [
     dataField: "id",
     caption: "Id",
     alignment: "left",
+    hideColumn: true,
   },
   {
     dataField: "type_name",
@@ -890,216 +900,259 @@ export const TypeDataColumns = [
   },
 ];
 
-export const GroupDataColumns = [
+export const MT5GroupDataColumns = [
   {
     dataField: "Group_ID",
     caption: "Group ID",
     alignment: "left",
+    hideColumn: true,
 },
 {
     dataField: "Timestamp",
     caption: "Timestamp",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "Server",
     caption: "Server",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "PermissionsFlags",
     caption: "Permissions Flags",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "AuthMode",
     caption: "Auth Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "AuthPasswordMin",
     caption: "Auth Password Min",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "AuthOTPMode",
     caption: "Auth OTP Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "Company",
     caption: "Company",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "CompanyPage",
     caption: "Company Page",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "CompanyEmail",
     caption: "Company Email",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "CompanySupportPage",
     caption: "Company Support Page",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "CompanySupportEmail",
     caption: "Company Support Email",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "CompanyCatalog",
     caption: "Company Catalog",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "CompanyDepositURL",
     caption: "Company Deposit URL",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "CompanyWithdrawalURL",
     caption: "Company Withdrawal URL",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "Currency",
     caption: "Currency",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "CurrencyDigits",
     caption: "Currency Digits",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "ReportsMode",
     caption: "Reports Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "ReportsEmail",
     caption: "Reports Email",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "ReportsFlags",
     caption: "Reports Flags",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "NewsMode",
     caption: "News Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "NewsCategory",
     caption: "News Category",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "MailMode",
     caption: "Mail Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "TradeFlags",
     caption: "Trade Flags",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "TransferMode",
     caption: "Transfer Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "TradeInterestrate",
     caption: "Trade Interest Rate",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "TradeVirtualCredit",
     caption: "Trade Virtual Credit",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "MarginMode",
     caption: "Margin Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "MarginSOMode",
     caption: "Margin SO Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "MarginFreeMode",
     caption: "Margin Free Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "MarginCall",
     caption: "Margin Call",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "MarginStopOut",
     caption: "Margin Stop Out",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "MarginLeverageProfile",
     caption: "Margin Leverage Profile",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "MarginFreeProfitMode",
     caption: "Margin Free Profit Mode",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "DemoLeverage",
     caption: "Demo Leverage",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "DemoDeposit",
     caption: "Demo Deposit",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "DemoTradesClean",
     caption: "Demo Trades Clean",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "LimitHistory",
     caption: "Limit History",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "LimitOrders",
     caption: "Limit Orders",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "LimitSymbols",
     caption: "Limit Symbols",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "LimitPositions",
     caption: "Limit Positions",
-    alignment: "left",
+    alignment: "center",
 },
 {
     dataField: "LimitPositionsVolume",
     caption: "Limit Positions Volume",
-    alignment: "left",
+    alignment: "center",
 },
 
+];
+
+export const ManagerDataColumns = [
+  {
+    dataField: "id",
+    caption: "Id",
+    alignment: "left",
+    hideColumn: true,
+  },
+  {
+    dataField: "name",
+    caption: "Name",
+    alignment: "center",
+  },
+  {
+    dataField: "login",
+    caption: "Login",
+    alignment: "center",
+  },
+  {
+    dataField: "server_id",
+    caption: "Server id",
+    alignment: "center",
+  },
+  {
+    dataField: "password",
+    caption: "Password",
+    alignment: "center",
+  },
+];
+export const CoverageServerDataColumns = [
+  {
+    dataField: "id",
+    caption: "Id",
+    alignment: "left",
+    hideColumn: true,
+  },
+  {
+    dataField: "name",
+    caption: "Name",
+    alignment: "center",
+  },
 ];

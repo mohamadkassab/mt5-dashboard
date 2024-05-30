@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import generatePassword from "random-password";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import FormContainer from "../../common/FormContainer";
 import {
   VisibilityOff,
   Visibility,
@@ -9,20 +10,17 @@ import {
 import {
   TextField,
   Button,
-  Container,
   Typography,
-  Box,
-  Paper,
-  Select,
-  MenuItem,
+  FormControl,
   FormControlLabel,
   Switch,
-  FormControl,
   InputLabel,
   IconButton,
   InputAdornment,
   OutlinedInput,
+  Autocomplete,
 } from "@mui/material";
+
 
 // Start relative variables
 import { AdminDataColumns } from "../../../utils/constants/Constants";
@@ -106,28 +104,7 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
   }, [success]);
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        bgcolor: "rgba(255, 255, 255, 1)",
-        p: 3,
-        borderRadius: 1,
-        boxShadow: 3,
-        zIndex: 10,
-      }}
-      component={Paper}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+    <FormContainer>
         <Typography variant="h4" component="h1" gutterBottom>
           {formTitle}
         </Typography>
@@ -176,22 +153,31 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
               />
             </FormControl>
 
-            <FormControl sx={{ width: "full" }} variant="outlined">
-              <InputLabel id="outlined-select-label">Role</InputLabel>
-              <Select
-                required
-                name={columns[2].dataField}
-                label={columns[2].caption}
-                value={formData[columns[2].dataField]}
-                onChange={handleChange}
-              >
-                {roles.map((role) => (
-                  <MenuItem key={role.id} value={role.id}>
-                    {role.role_name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <FormControl sx={{ width: "100%" }} variant="outlined">
+
+  <Autocomplete
+    id="outlined-autocomplete"
+    options={roles}
+    getOptionLabel={(option) => option.role_name}
+    value={roles.find(role => role.id === formData[columns[2].dataField]) || null}
+    onChange={(event, newValue) => {
+      handleChange({
+        target: {
+          name: columns[2].dataField,
+          value: newValue ? newValue.id : '',
+        }
+      });
+    }}
+    renderInput={(params) => (
+      <TextField
+        {...params}
+        label={columns[2].caption}
+        variant="outlined"
+        required
+      />
+    )}
+  />
+</FormControl>
 
             <div className="flex justify-center">
               <FormControlLabel
@@ -242,8 +228,7 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
             </Button>
           </div>
         </form>
-      </Box>
-    </Container>
+        </FormContainer>
   );
 };
 

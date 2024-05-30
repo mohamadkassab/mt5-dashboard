@@ -27,12 +27,15 @@ import {
   GET_PERMISSION_REQUEST,
   GET_PERMISSION_SUCCESS,
   GET_PERMISSION_FAILURE,
-  GET_SYMBOL_REQUEST,
-  GET_SYMBOL_SUCCESS,
-  GET_SYMBOL_FAILURE,
-  GET_GROUP_REQUEST,
-  GET_GROUP_SUCCESS,
-  GET_GROUP_FAILURE,
+  GET_MANAGER_REQUEST,
+  GET_MANAGER_SUCCESS,
+  GET_MANAGER_FAILURE,
+  GET_MT5MANAGER_REQUEST,
+  GET_MT5MANAGER_SUCCESS,
+  GET_MT5MANAGER_FAILURE,
+  GET_COVERAGESERVER_REQUEST,
+  GET_COVERAGESERVER_SUCCESS,
+  GET_COVERAGESERVER_FAILURE,
 } from "./ActionTypes";
 import produce from "immer";
 import { ATFXTOKEN } from "../constants/Constants";
@@ -44,8 +47,9 @@ const initialState = {
   types: [],
   permissions: [],
   configurations: [],
-  symbols: [],
-  groups: [],
+  managers: [],
+  mt5Managers: [],
+  coverageServers:[],
   isAuthenticated: localStorage.getItem(ATFXTOKEN) || false,
   loading: false,
   success: false,
@@ -53,9 +57,6 @@ const initialState = {
 };
 
 const reducer = produce((draft, action) => {
-  // console.log('Action Type:', action.type);
-  // console.log('Action Payload:', action.payload);
-  // console.log('Is Draft Extensible:', Object.isExtensible(draft));
 
   switch (action.type) {
     // GLOBAL
@@ -198,38 +199,55 @@ const reducer = produce((draft, action) => {
       draft.permissions = [];
       draft.error = true;
       draft.loading = false;
-      break;
-    
-    // SYMBOLS
-    case GET_SYMBOL_REQUEST:
-      draft.symbols = [];
+      break;    
+
+     // MANAGERS
+     case GET_MANAGER_REQUEST:
+      draft.managers = [];
       draft.error = false;
       draft.loading = true;
       break;
-    case GET_SYMBOL_SUCCESS:
-      draft.symbols = action.payload.map((item) => item);
+    case GET_MANAGER_SUCCESS:
+      draft.managers = action.payload.map((item) => item);
       draft.error = false;
       draft.loading = false;
       break;
-    case GET_SYMBOL_FAILURE:
-      draft.symbols = [];
+    case GET_MANAGER_FAILURE:
+      draft.managers = [];
       draft.error = true;
       draft.loading = false;
       break;
-      
-    // GROUPS
-    case GET_GROUP_REQUEST:
-      draft.groups = [];
+
+    // MT5 MANAGERS
+    case GET_MT5MANAGER_REQUEST:
+      draft.mt5Managers = [];
       draft.error = false;
       draft.loading = true;
       break;
-    case GET_GROUP_SUCCESS:
-      draft.groups = action.payload.map((item) => item);
+    case GET_MT5MANAGER_SUCCESS:
+      draft.mt5Managers = action.payload.map((item) => item);
       draft.error = false;
       draft.loading = false;
       break;
-    case GET_GROUP_FAILURE:
-      draft.groups = [];
+    case GET_MT5MANAGER_FAILURE:
+      draft.mt5Managers = [];
+      draft.error = true;
+      draft.loading = false;
+      break;
+
+    // COVERAGESERVERS
+    case GET_COVERAGESERVER_REQUEST:
+      draft.coverageServers = [];
+      draft.error = false;
+      draft.loading = true;
+      break;
+    case GET_COVERAGESERVER_SUCCESS:
+      draft.coverageServers = action.payload.map((item) => item);
+      draft.error = false;
+      draft.loading = false;
+      break;
+    case GET_COVERAGESERVER_FAILURE:
+      draft.coverageServers = [];
       draft.error = true;
       draft.loading = false;
       break;

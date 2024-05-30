@@ -16,7 +16,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Menu, MT5 } from "../utils/constants/Constants";
+import { Menu, MT5Menu } from "../utils/constants/Constants";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -200,7 +200,7 @@ const DefaultLayout = ({ componentName, children }) => {
         </List>
         <Divider />
         <List>
-          {MT5.map((item, index) => (
+          {MT5Menu.map((item, index) => (
             <ListItem key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 href={item.path}

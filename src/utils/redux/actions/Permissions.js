@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-  API_PERMISSIONS,
+  API_PERMISSION,
   ATFXTOKEN,
   GLOBAL_REQUEST_TIMEOUT,
 } from "../../constants/Constants";
@@ -22,7 +22,7 @@ export const GetPermissions = () => {
       const apiPort = process.env.REACT_APP_API_PORT;
       const authorizationToken = localStorage.getItem(ATFXTOKEN);
 
-      const response = await axios.get(`${apiIp}:${apiPort}${API_PERMISSIONS}`, {
+      const response = await axios.get(`${apiIp}:${apiPort}${API_PERMISSION}`, {
         headers: {
           Authorization: `${authorizationToken}`,
         },
@@ -57,7 +57,7 @@ export const CreatePermission = (params) => {
       const apiPort = process.env.REACT_APP_API_PORT;
       const authorizationToken = localStorage.getItem(ATFXTOKEN);
       const response = await axios.post(
-        `${apiIp}:${apiPort}${API_PERMISSIONS}`,
+        `${apiIp}:${apiPort}${API_PERMISSION}`,
         params,
         {
           headers: {
@@ -96,7 +96,7 @@ export const EditPermission = (params) => {
       const authorizationToken = localStorage.getItem(ATFXTOKEN);
       const {id, ...restParams} = params;
       const response = await axios.put(
-        `${apiIp}:${apiPort}${API_PERMISSIONS}${id}`,
+        `${apiIp}:${apiPort}${API_PERMISSION}${id}`,
         restParams,
         {
           headers: {
@@ -135,7 +135,7 @@ export const DeletePermission = (params) => {
         const apiPort = process.env.REACT_APP_API_PORT;
         const authorizationToken = localStorage.getItem(ATFXTOKEN);
         const response = await axios.delete(
-          `${apiIp}:${apiPort}${API_PERMISSIONS}${params}`,
+          `${apiIp}:${apiPort}${API_PERMISSION}${params}`,
   
           {
             headers: {

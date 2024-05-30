@@ -1,27 +1,10 @@
 import React, { useState, useEffect } from "react";
-import DataGrid, {
-  Column,
-  Grouping,
-  GroupPanel,
-  Pager,
-  Paging,
-  ColumnChooser,
-  SearchPanel,
-  Sorting,
-  Export,
-  Selection,
-} from "devextreme-react/data-grid";
-import { Button } from "@mui/material";
-import { saveAs } from "file-saver-es";
-import { Workbook } from "exceljs";
-import { exportDataGrid } from "devextreme/excel_exporter";
-import { booleanCellRender } from "../cellRendering/CellRendering";
+import { useLocation } from "react-router-dom";
+import { ExportXlsx } from "../../utils/functions/Functions";
 import { useDispatch, useSelector } from "react-redux";
-import AddIcon from "@mui/icons-material/Add";
-import IconButton from "@mui/material/IconButton";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ConfirmDialaog from "../common/ConfirmDialaog";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import CreateButton from '../common/CreateButton';
+import DataGridTable from '../common/DataGridTable';
 
 // Start relative variables
 import { GetRoles, DeleteRole } from "../../utils/redux/actions/Roles";
@@ -40,8 +23,8 @@ const RolesDataTable = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [createForm, setCreateForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
-  const confirmSentece = "Are you sure you want to delete this email";
-
+  const confirmSentece = "Are you sure you want to delete this role";
+  const location = useLocation();
   // Start relative variables
   const [itemToDelete, setItemToDelete] = useState("");
   const data = useSelector((state) => state.roles);
@@ -51,41 +34,19 @@ const RolesDataTable = () => {
       dispatch(GetRoles());
     }
   }, [dispatch, refresh]);
+  
+  const onDeleting = (data) => {
+    setIdToDelete(data.id);
+    setItemToDelete(data.role_name);  // Relative variables
+    setShowConfirmDialog(true);
+  };
+
   // End relative variables
 
-  const columnsDiv = columns.map((item, index) => {
-    const columnProps = {
-      key: index,
-      dataField: item.dataField,
-      caption: item.caption,
-      alignment: item.alignment,
-    };
-    if (item.cellRender) {
-      columnProps.cellRender = item.cellRender;
-    }
-    if (item.width) {
-      columnProps.width = item.width;
-    }
-    if(!item.hideColumn){
-      return <Column {...columnProps}></Column>;
-    }
-  });
 
   const onExporting = (e) => {
-    const workbook = new Workbook();
-    const worksheet = workbook.addWorksheet("Main sheet");
-    exportDataGrid({
-      component: e.component,
-      worksheet,
-      autoFilterEnabled: true,
-    }).then(() => {
-      workbook.xlsx.writeBuffer().then((buffer) => {
-        saveAs(
-          new Blob([buffer], { type: "application/octet-stream" }),
-          "DataGrid.xlsx"
-        );
-      });
-    });
+    const fileName =  location.pathname;
+    ExportXlsx(e, fileName);
   };
 
   const refreshPage = () => {
@@ -109,11 +70,6 @@ const RolesDataTable = () => {
     setEditForm(props);
   };
 
-  const onDeleting = (data) => {
-    setIdToDelete(data.id);
-    setItemToDelete(data.role_name);  // Relative variables
-    setShowConfirmDialog(true);
-  };
 
   const onDelete = async () => {
     await dispatch(DeleteRole(idToDelete));
@@ -154,83 +110,11 @@ const RolesDataTable = () => {
 
 <div className={`${createForm ? "blur-sm" : ""}${editForm ? "blur-sm" : ""}`}>
         <div className="flex justify-end">
-          <Button
-            variant="contained"
-            startIcon={
-              <AddIcon
-                sx={{
-                  color: "white",
-                }}
-              />
-            }
-            onClick={onInserting}
-          >
-            Create
-          </Button>
+        <CreateButton onClick={onInserting}/>
         </div>
 
-        <DataGrid
-          id="gridContainer"
-          dataSource={data}
-          columnHidingEnabled={true}
-          width="100%"
-          showBorders={true}
-          showRowLines={false}
-          rowAlternationEnabled={true}
-          onExporting={onExporting}
-          columnMinWidth={50}
-          allowUpdating={true}
-        >
-          <Export enabled={true} allowExportSelectedData={true} />
+        <DataGridTable data={data}  onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
 
-          <SearchPanel visible={true} placeholder="Search..." />
-          <Selection mode="multiple" />
-          <Grouping
-            contextMenuEnabled={true}
-            autoExpandAll={true}
-            expandMode="rowClick"
-          />
-          <GroupPanel visible={true} emptyPanelText="" />
-          <Pager
-            allowedPageSizes={allowedPageSizes}
-            showInfo={true}
-            showNavigationButtons={true}
-            showPageSizeSelector={true}
-            visible={true}
-            displayMode={"compact"}
-          />
-          <Paging defaultPageSize={allowedPageSizes[0]} />
-          <ColumnChooser enabled={false} mode="select" />
-          <Sorting mode="multiple" />
-
-          {columnsDiv}
-
- 
-          <Column
-            caption="Action"
-            alignment="center"
-            fixedPosition="right"
-            fixed={true}
-            width={100}
-            cellRender={(rowData) => (
-              <div>
-                <IconButton
-                  onClick={() => onEditing(rowData.data)}
-                  aria-label="delete"
-                >
-                  <ModeEditOutlineOutlinedIcon />
-                </IconButton>
-                <IconButton
-                  onClick={() => onDeleting(rowData.data)}
-                  aria-label="delete"
-                  color="error"
-                >
-                  <DeleteOutlineIcon />
-                </IconButton>
-              </div>
-            )}
-          />
-        </DataGrid>
       </div>
     </div>
   );

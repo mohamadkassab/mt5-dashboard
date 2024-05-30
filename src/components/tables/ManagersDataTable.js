@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
-import ConfirmDialaog from "../common/ConfirmDialaog";
 import { useLocation } from "react-router-dom";
 import { ExportXlsx } from "../../utils/functions/Functions";
 import { useDispatch, useSelector } from "react-redux";
-import CreateButton from '../common/CreateButton';
-import DataGridTable from '../common/DataGridTable';
+import ConfirmDialaog from "../common/ConfirmDialaog";
+import CreateButton from "../common/CreateButton";
+import DataGridTable from "../common/DataGridTable";
 
 // Start relative variables
-import { GetPermissions, DeletePermission } from "../../utils/redux/actions/Permissions";
-import {PermissionDataColumns, ROWS_PER_PAGE} from "../../utils/constants/Constants";
-import PermissionsCreateForm from "../forms/permissions/PermissionsCreateForm";
-import PermissionsEditForm from "../forms/permissions/PermissionsEditForm";
+import { GetManagers } from "../../utils/redux/actions/Managers";
+import {
+  ManagerDataColumns,
+  ROWS_PER_PAGE,
+} from "../../utils/constants/Constants";
+import ManagersCreateForm from "../forms/managers/ManagersCreateForm";
+import ManagersEditForm from "../forms/managers/ManagersEditForm";
+import { DeleteManager } from "../../utils/redux/actions/Managers";
 // End relative variables
 
-const PermissionsDataTable = () => {
+const GroupsDataTable = () => {
   const allowedPageSizes = ROWS_PER_PAGE;
   const dispatch = useDispatch();
   const error = useSelector((state) => state.error);
@@ -23,29 +27,29 @@ const PermissionsDataTable = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [createForm, setCreateForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
-  const confirmDeleteSentece = "Are you sure you want to delete this permission";
+  const confirmSentece = "Are you sure you want to delete this manager";
   const location = useLocation();
+
   // Start relative variables
   const [itemToDelete, setItemToDelete] = useState("");
-  const data = useSelector((state) => state.permissions);
-  const columns = PermissionDataColumns;
+  const data = useSelector((state) => state.managers);
+  const columns = ManagerDataColumns;
 
   useEffect(() => {
-    if(!error){
-      dispatch(GetPermissions());
+    if (!error) {
+      dispatch(GetManagers());
     }
   }, [dispatch, refresh]);
 
   const onDeleting = (data) => {
     setIdToDelete(data.id);
-    setItemToDelete(data.permission);  // Relative variables
+    setItemToDelete(data.name); // Relative variables
     setShowConfirmDialog(true);
   };
   // End relative variables
 
- 
   const onExporting = (e) => {
-    const fileName =  location.pathname;
+    const fileName = location.pathname;
     ExportXlsx(e, fileName);
   };
 
@@ -73,7 +77,7 @@ const PermissionsDataTable = () => {
 
 
   const onDelete = async () => {
-    await dispatch(DeletePermission(idToDelete));
+    await dispatch(DeleteManager(idToDelete));
     refreshPage();
   };
 
@@ -91,32 +95,41 @@ const PermissionsDataTable = () => {
       {showConfirmDialog && (
         <ConfirmDialaog
           confirmDelete={confirmDelete}
-          confirmSentece={confirmDeleteSentece}
+          confirmSentece={confirmSentece}
           data={itemToDelete}
         />
       )}
       {createForm && (
-        <PermissionsCreateForm
+        <ManagersCreateForm
           createFormVisibility={createFormVisibility}
           refreshPage={refreshPage}
         />
       )}
       {editForm && (
-        <PermissionsEditForm
+        <ManagersEditForm
           editFormVisibility={editFormVisibility}
           data={dataToBeEdited}
           refreshPage={refreshPage}
         />
       )}
 
-<div className={`${createForm ? "blur-sm" : ""}${editForm ? "blur-sm" : ""}`}>
+      <div
+        className={`${createForm ? "blur-sm" : ""}${editForm ? "blur-sm" : ""}`}
+      >
         <div className="flex justify-end">
-        <CreateButton onClick={onInserting}/>
+          <CreateButton onClick={onInserting} />
         </div>
 
-        <DataGridTable data={data}  onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
+        <DataGridTable
+          data={data}
+          onExporting={onExporting}
+          allowedPageSizes={allowedPageSizes}
+          onEditing={onEditing}
+          onDeleting={onDeleting}
+          columns={columns}
+        />
       </div>
     </div>
   );
 };
-export default PermissionsDataTable;
+export default GroupsDataTable;

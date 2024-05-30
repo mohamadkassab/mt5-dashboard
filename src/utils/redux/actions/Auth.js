@@ -34,7 +34,6 @@ export const SignIn = (credentials) => {
         ATFXTOKEN,
         `${data.token_type} ${data.access_token}`
       );
-      console.log(data);
 
       const status = response.status;
       if (status >= 200 && status < 300) {

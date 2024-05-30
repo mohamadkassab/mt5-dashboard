@@ -7,32 +7,41 @@ import {
   Typography,
 } from "@mui/material";
 
+
 // Start relative variables
-import { RoleDataColumns } from "../../../utils/constants/Constants";
-import { CreateRole } from "../../../utils/redux/actions/Roles";
+import { CoverageServerDataColumns } from "../../../utils/constants/Constants";
+import { CreateCoverageServer } from "../../../utils/redux/actions/CoverageServers";
 // End relative variables
 
-const RolesCreateForm = ({ createFormVisibility, refreshPage }) => {
+const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
   const dispatch = useDispatch();
   const success = useSelector((state) => state.success);
+
   // Start relative variables
-  const formTitle = "Create Role";
-  const columns = RoleDataColumns;
+  const formTitle = "Create Coverage Server";
+  const columns = CoverageServerDataColumns;
   const [formData, setFormData] = useState({
     [columns[1].dataField]: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(CreateRole(formData));
+    await dispatch(CreateCoverageServer(formData));
+
+  };
+
+  React.useEffect(() => {
     if (success) {
       setFormData({
         [columns[1].dataField]: "",
+
       });
       refreshPage();
     }
-  };
+  }, [success]);
     // End relative variables
+
+
 
   const handleChange = (event) => {
     setFormData({
@@ -41,18 +50,17 @@ const RolesCreateForm = ({ createFormVisibility, refreshPage }) => {
     });
   };
 
+
+
   const hideForm = () => {
     createFormVisibility(false);
   };
 
-  React.useEffect(() => {
-    if (success) {
-      setFormData({
-        [columns[1].dataField]: "",
-      });
-      refreshPage();
-    }
-  }, [success]);
+
+
+
+
+
 
   return (
     <FormContainer>
@@ -112,4 +120,4 @@ const RolesCreateForm = ({ createFormVisibility, refreshPage }) => {
   );
 };
 
-export default RolesCreateForm;
+export default AdminsCreateForm;
