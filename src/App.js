@@ -36,6 +36,7 @@ function App() {
             <Route path={MT5Menu[3].path} element={<ControlCenter />} />
             <Route path={MT5Menu[4].path} element={<ControlCenter />} />
             <Route path={MT5Menu[5].path} element={<ControlCenter />} />
+            <Route path={MT5Menu[5].path} element={<ControlCenter />} />
           </Route>
         </Routes>
       </BrowserRouter>

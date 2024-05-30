@@ -3,11 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import generatePassword from "random-password";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { VisibilityOff, Visibility } from "@mui/icons-material/";
-import {
-  TextField,
-  Button,
-  Typography,
-} from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import FormContainer from "../../common/FormContainer";
 
 // Start relative variables
@@ -29,15 +25,12 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
   });
   // End relative variables
 
-
   const handleChange = (event) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   };
-
-
 
   const hideForm = () => {
     editFormVisibility(false);
@@ -47,9 +40,6 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
     e.preventDefault();
     await dispatch(EditCoverageServer(formData));
   };
-
-
-
 
   React.useEffect(() => {
     if (success) {
@@ -72,8 +62,6 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
             value={formData[columns[1].dataField]}
             onChange={handleChange}
           />
-
-
         </div>
 
         <div className="flex ">

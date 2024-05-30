@@ -245,7 +245,7 @@ const DefaultLayout = ({ componentName, children }) => {
                   justifyContent: "center",
                 }}
               >
-                <ExitToAppIcon />
+                <ExitToAppIcon fontSize="large"/>
               </ListItemIcon>
               <ListItemText primary="Sign out" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>

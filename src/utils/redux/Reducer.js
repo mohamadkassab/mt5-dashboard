@@ -36,6 +36,9 @@ import {
   GET_COVERAGESERVER_REQUEST,
   GET_COVERAGESERVER_SUCCESS,
   GET_COVERAGESERVER_FAILURE,
+  GET_COVERAGEACCOUNT_REQUEST,
+  GET_COVERAGEACCOUNT_SUCCESS,
+  GET_COVERAGEACCOUNT_FAILURE,
 } from "./ActionTypes";
 import produce from "immer";
 import { ATFXTOKEN } from "../constants/Constants";
@@ -50,6 +53,7 @@ const initialState = {
   managers: [],
   mt5Managers: [],
   coverageServers:[],
+  coverageAccounts:[],
   isAuthenticated: localStorage.getItem(ATFXTOKEN) || false,
   loading: false,
   success: false,
@@ -248,6 +252,23 @@ const reducer = produce((draft, action) => {
       break;
     case GET_COVERAGESERVER_FAILURE:
       draft.coverageServers = [];
+      draft.error = true;
+      draft.loading = false;
+      break;
+
+      // COVERAGEACCOUNTS
+      case GET_COVERAGEACCOUNT_REQUEST:
+      draft.coverageAccounts= [];
+      draft.error = false;
+      draft.loading = true;
+      break;
+    case GET_COVERAGEACCOUNT_SUCCESS:
+      draft.coverageAccounts = action.payload.map((item) => item);
+      draft.error = false;
+      draft.loading = false;
+      break;
+    case GET_COVERAGEACCOUNT_FAILURE:
+      draft.coverageAccounts = [];
       draft.error = true;
       draft.loading = false;
       break;

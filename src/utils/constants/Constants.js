@@ -1,7 +1,7 @@
 import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import AssignmentIndRoundedIcon from "@mui/icons-material/AssignmentIndRounded";
-import Avatar from "@mui/material/Avatar";
+import AvatarMenu from "../../components/common/AvatarMenu";
 import { booleanCellRender } from "../../components/cellRendering/CellRendering";
 
 // Common
@@ -41,21 +41,24 @@ export const API_MT5MANAGER = "/admins/MT5AllManagers/";
 // COVERAGESERVER
 export const API_COVERAGESERVER = "/admins/MT5CoverageServerAdmin/";
 
+// COVERAGEACCOUNT
+export const API_COVERAGEACCOUNT = "/admins/MT5CoverageAdmin/";
+
 export const Menu = [
   {
     name: "Dashboard",
     path: "/dashboard",
-    icon: <GridViewRoundedIcon />,
+    icon: <GridViewRoundedIcon fontSize="large"/>,
   },
   {
     name: "Admins",
     path: "/admins",
-    icon: <AssignmentIndRoundedIcon />,
+    icon: <AssignmentIndRoundedIcon fontSize="large"/>,
   },
   {
     name: "Users",
     path: "/users",
-    icon: <PeopleAltRoundedIcon />,
+    icon: <PeopleAltRoundedIcon fontSize="large"/>,
   },
 ];
 
@@ -64,42 +67,49 @@ export const MT5Menu = [
     name: "Configurations",
     path: "/configurations",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>C</Avatar>
+      <AvatarMenu>C</AvatarMenu>
+    ),
+  },
+  {
+    name: "Coverage Accounts",
+    path: "/coverageAccounts",
+    icon: (
+      <AvatarMenu >CA</AvatarMenu>
     ),
   },
   {
     name: "Coverage Servers",
     path: "/coverageServers",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>CS</Avatar>
+      <AvatarMenu >CS</AvatarMenu>
     ),
   },
   {
     name: "Managers",
     path: "/managers",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>MA</Avatar>
+      <AvatarMenu >MA</AvatarMenu>
     ),
   },
   {
     name: "Permissions",
     path: "/permissions",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>P</Avatar>
+      <AvatarMenu >P</AvatarMenu>
     ),
   },
   {
     name: "Roles",
     path: "/roles",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>R</Avatar>
+      <AvatarMenu >R</AvatarMenu>
     ),
   },
   {
     name: "Types",
     path: "/types",
     icon: (
-      <Avatar sx={{ bgcolor: "#0000008a", width: 34, height: 34 }}>T</Avatar>
+      <AvatarMenu >T</AvatarMenu>
     ),
   },
 ];
@@ -1143,6 +1153,7 @@ export const ManagerDataColumns = [
     alignment: "center",
   },
 ];
+
 export const CoverageServerDataColumns = [
   {
     dataField: "id",
@@ -1153,6 +1164,36 @@ export const CoverageServerDataColumns = [
   {
     dataField: "name",
     caption: "Name",
+    alignment: "center",
+  },
+];
+
+export const CoverageAccountDataColumns = [
+  {
+    dataField: "id",
+    caption: "Id",
+    alignment: "left",
+    hideColumn: true,
+  },
+  {
+    dataField: "coverage_server_id",
+    caption: "Coverage Server",
+    alignment: "center",
+    hideColumn: true,
+  },
+  {
+    dataField: "name",
+    caption: "Name",
+    alignment: "center",
+  },
+  {
+    dataField: "login",
+    caption: "Login",
+    alignment: "center",
+  },
+  {
+    dataField: "password",
+    caption: "Password",
     alignment: "center",
   },
 ];
