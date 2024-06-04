@@ -69,15 +69,13 @@ export const GetManagers = () => {
       const status = response.status;
 
       if (status >= 200 && status < 300) {
-        const data = JSON.parse(response.data);
-        dispatch({ type: GET_MANAGER_SUCCESS, payload: data });
+        dispatch({ type: GET_MANAGER_SUCCESS, payload: response.data });
       } else if (status === 401) {
         dispatch({ type: ISAUTHENTICATED_FAILURE });
       } else {
         throw new Error(`Unexpected status code: ${status}`);
       }
     } catch (error) {
-      console.log(error);
       const errorPayload = {
         message: error.message,
         code: error.code,

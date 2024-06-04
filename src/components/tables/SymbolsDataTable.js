@@ -3,21 +3,17 @@ import { useLocation } from "react-router-dom";
 import { ExportXlsx } from "../../utils/functions/Functions";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmDialaog from "../common/ConfirmDialaog";
-import CreateButton from "../common/CreateButton";
-import DataGridTable from "../common/DataGridTable";
+import CreateButton from '../common/CreateButton';
+import DataGridTable from '../common/DataGridTable';
 
 // Start relative variables
-import { GetManagers } from "../../utils/redux/actions/Managers";
-import {
-  ManagerDataColumns,
-  ROWS_PER_PAGE,
-} from "../../utils/constants/Constants";
-import ManagersCreateForm from "../forms/managers/ManagersCreateForm";
-import ManagersEditForm from "../forms/managers/ManagersEditForm";
-import { DeleteManager } from "../../utils/redux/actions/Managers";
+import { GetSymbols, DeleteSymbol } from "../../utils/redux/actions/Symbols";
+import {SymbolDataColumns, ROWS_PER_PAGE} from "../../utils/constants/Constants";
+import SymbolsCreateForm from "../forms/symbols/SymbolsCreateForm";
+import SymbolsEditForm from "../forms/symbols/SymbolsEditForm";
 // End relative variables
 
-const GroupsDataTable = () => {
+const SymbolsDataTable = () => {
   const allowedPageSizes = ROWS_PER_PAGE;
   const dispatch = useDispatch();
   const error = useSelector((state) => state.error);
@@ -27,29 +23,28 @@ const GroupsDataTable = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [createForm, setCreateForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
-  const confirmSentece = "Are you sure you want to delete this manager";
+  const confirmSentece = "Are you sure you want to delete this symbol";
   const location = useLocation();
-
   // Start relative variables
   const [itemToDelete, setItemToDelete] = useState("");
-  const data = useSelector((state) => state.managers);
-  const columns = ManagerDataColumns;
+  const data = useSelector((state) => state.symbols);
+  const columns = SymbolDataColumns;
 
   useEffect(() => {
-    if (!error) {
-      dispatch(GetManagers());
+    if(!error){
+      dispatch(GetSymbols());
     }
   }, [dispatch, refresh]);
-
   const onDeleting = (data) => {
     setIdToDelete(data.id);
-    setItemToDelete(data.name); // Relative variables
+    setItemToDelete(data.symbol);   // Relative variables
     setShowConfirmDialog(true);
   };
+
   // End relative variables
 
   const onExporting = (e) => {
-    const fileName = location.pathname;
+    const fileName =  location.pathname;
     ExportXlsx(e, fileName);
   };
 
@@ -74,8 +69,9 @@ const GroupsDataTable = () => {
     setEditForm(props);
   };
 
+
   const onDelete = async () => {
-    await dispatch(DeleteManager(idToDelete));
+    await dispatch(DeleteSymbol(idToDelete));
     refreshPage();
   };
 
@@ -86,6 +82,7 @@ const GroupsDataTable = () => {
 
   const onInserting = () => {
     setCreateForm(true);
+    
   };
 
   return (
@@ -98,36 +95,28 @@ const GroupsDataTable = () => {
         />
       )}
       {createForm && (
-        <ManagersCreateForm
+        <SymbolsCreateForm
           createFormVisibility={createFormVisibility}
           refreshPage={refreshPage}
         />
       )}
       {editForm && (
-        <ManagersEditForm
+        <SymbolsEditForm
           editFormVisibility={editFormVisibility}
           data={dataToBeEdited}
           refreshPage={refreshPage}
         />
       )}
 
-      <div
-        className={`${createForm ? "blur-sm" : ""}${editForm ? "blur-sm" : ""}`}
-      >
+<div className={`${createForm ? "blur-sm" : ""}${editForm ? "blur-sm" : ""}`}>
         <div className="flex justify-end">
-          <CreateButton onClick={onInserting} />
+  
+        <CreateButton onClick={onInserting}/>
         </div>
 
-        <DataGridTable
-          data={data}
-          onExporting={onExporting}
-          allowedPageSizes={allowedPageSizes}
-          onEditing={onEditing}
-          onDeleting={onDeleting}
-          columns={columns}
-        />
+        <DataGridTable data={data}  onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
       </div>
     </div>
   );
 };
-export default GroupsDataTable;
+export default SymbolsDataTable;

@@ -97,7 +97,7 @@ const DefaultLayout = ({ componentName, children }) => {
   const dispatch = useDispatch();
   const [showSuccess, setShowSuccess] = React.useState(false);
   const [showError, setShowError] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const loading = useSelector((state) => state.loading);
   const success = useSelector((state) => state.success);
   const error = useSelector((state) => state.error);
@@ -169,10 +169,10 @@ const DefaultLayout = ({ componentName, children }) => {
             )}
           </IconButton>
         </DrawerHeader>
-        <Divider />
         <List>
           {Menu.map((item, index) => (
-            <ListItem key={index} disablePadding sx={{ display: "block" }}>
+            <React.Fragment key={index}>
+            <ListItem disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 href={item.path}
                 sx={{
@@ -196,12 +196,15 @@ const DefaultLayout = ({ componentName, children }) => {
                 />
               </ListItemButton>
             </ListItem>
+            {item.dividerBottom && <Divider sx={{ my: 1 }}/>}
+            </React.Fragment>
           ))}
         </List>
-        <Divider />
+        <Divider/>
         <List>
           {MT5Menu.map((item, index) => (
-            <ListItem key={index} disablePadding sx={{ display: "block" }}>
+            <React.Fragment key={index}>
+            <ListItem  disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 href={item.path}
                 sx={{
@@ -225,9 +228,11 @@ const DefaultLayout = ({ componentName, children }) => {
                 />
               </ListItemButton>
             </ListItem>
+            {item.dividerBottom && <Divider sx={{ my: 1 }}/>}
+            </React.Fragment>
           ))}
         </List>
-        <Divider />
+        <Divider/>
         <List>
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton

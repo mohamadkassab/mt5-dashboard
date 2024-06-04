@@ -16,7 +16,7 @@ import {
   InputAdornment,
   OutlinedInput,
 } from "@mui/material";
-
+import TypographyContainer from "../../common/TypographyContainer";
 
 // Start relative variables
 import { ConfigurationDataColumns } from "../../../utils/constants/Constants";
@@ -125,9 +125,9 @@ const ConfigurationsCreateForm = ({ createFormVisibility, refreshPage }) => {
 
   return (
     <FormContainer>
-        <Typography variant="h4" component="h1" gutterBottom>
-          {formTitle}
-        </Typography>
+      <TypographyContainer>
+     {formTitle}
+     </TypographyContainer>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <TextField
@@ -141,7 +141,7 @@ const ConfigurationsCreateForm = ({ createFormVisibility, refreshPage }) => {
             />
 
             <TextField
-              type="email"
+              type="text"
               variant="outlined"
               required
               name={columns[2].dataField}

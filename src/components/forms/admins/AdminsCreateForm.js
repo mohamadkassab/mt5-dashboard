@@ -17,7 +17,7 @@ import {
   OutlinedInput,
   Autocomplete,
 } from "@mui/material";
-
+import TypographyContainer from "../../common/TypographyContainer";
 // Start relative variables
 import { AdminDataColumns } from "../../../utils/constants/Constants";
 import { CreateAdmin } from "../../../utils/redux/actions/Admins";
@@ -100,9 +100,9 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
 
   return (
     <FormContainer>
-      <Typography variant="h4" component="h1" gutterBottom>
+      <TypographyContainer>
         {formTitle}
-      </Typography>
+     </TypographyContainer>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <TextField

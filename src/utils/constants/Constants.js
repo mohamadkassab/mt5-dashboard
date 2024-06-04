@@ -44,11 +44,21 @@ export const API_COVERAGESERVER = "/admins/MT5CoverageServerAdmin/";
 // COVERAGEACCOUNT
 export const API_COVERAGEACCOUNT = "/admins/MT5CoverageAdmin/";
 
+// MT5SYMBOL
+export const API_MT5SYMBOL = "/admins/MT5Symbols/";
+
+// SYMBOL
+export const API_SYMBOL = "/admins/MT5SymbolsConfigurations/";
+
+// SUFFIX
+export const API_SUFFIX = "/admins/MT5SymbolsSuffixes/";
+
 export const Menu = [
   {
     name: "Dashboard",
     path: "/dashboard",
     icon: <GridViewRoundedIcon fontSize="large"/>,
+
   },
   {
     name: "Admins",
@@ -64,18 +74,27 @@ export const Menu = [
 
 export const MT5Menu = [
   {
-    name: "Configurations",
-    path: "/configurations",
+    name: "MT5 Configurations",
+    path: "/mt5Configurations",
     icon: (
       <AvatarMenu>C</AvatarMenu>
     ),
   },
   {
-    name: "Coverage Accounts",
-    path: "/coverageAccounts",
+    name: "Managers",
+    path: "/managers",
     icon: (
-      <AvatarMenu >CA</AvatarMenu>
+      <AvatarMenu >M</AvatarMenu>
     ),
+
+  },
+  {
+    name: "Symbols",
+    path: "/symbols",
+    icon: (
+      <AvatarMenu >S</AvatarMenu>
+    ),
+    dividerBottom: true,
   },
   {
     name: "Coverage Servers",
@@ -85,11 +104,12 @@ export const MT5Menu = [
     ),
   },
   {
-    name: "Managers",
-    path: "/managers",
+    name: "Coverage Accounts",
+    path: "/coverageAccounts",
     icon: (
-      <AvatarMenu >MA</AvatarMenu>
+      <AvatarMenu >CA</AvatarMenu>
     ),
+    dividerBottom: true,
   },
   {
     name: "Permissions",
@@ -300,598 +320,6 @@ export const RoleDataColumns = [
   {
     dataField: "role_name",
     caption: "Role Name",
-    alignment: "center",
-  },
-];
-
-export const MT5SymbolDataColumns = [
-  {
-    dataField: "Symbol_ID",
-    caption: "Symbol Id",
-    alignment: "left",
-    hideColumn: true,
-  },
-  {
-    dataField: "Path",
-    caption: "Path",
-    alignment: "center",
-  },
-  {
-    dataField: "ISIN",
-    caption: "ISIN",
-    alignment: "center",
-  },
-  {
-    dataField: "CFI",
-    caption: "CFI",
-    alignment: "center",
-  },
-
-  {
-    dataField: "Category",
-    caption: "Category",
-    alignment: "center",
-  },
-
-  {
-    dataField: "Exchange",
-    caption: "Exchange",
-    alignment: "center",
-  },
-  {
-    dataField: "Description",
-    caption: "Description",
-    alignment: "center",
-  },
-
-  {
-    dataField: "International",
-    caption: "International",
-    alignment: "center",
-  },
-
-  {
-    dataField: "Sector",
-    caption: "Sector",
-    alignment: "center",
-  },
-
-  {
-    dataField: "Industry",
-    caption: "Industry",
-    alignment: "center",
-  },
-  {
-    dataField: "Country",
-    caption: "Country",
-    alignment: "center",
-  },
-  {
-    dataField: "Basis",
-    caption: "Basis",
-    alignment: "center",
-  },
-  {
-    dataField: "Source",
-    caption: "Source",
-    alignment: "center",
-  },
-  {
-    dataField: "Page",
-    caption: "Page",
-    alignment: "center",
-  },
-  {
-    dataField: "CurrencyBase",
-    caption: "Currency Base",
-    alignment: "center",
-  },
-  {
-    dataField: "CurrencyBaseDigits",
-    caption: "Currency Base Digits",
-    alignment: "center",
-  },
-  {
-    dataField: "CurrencyProfit",
-    caption: "Currency Profit",
-    alignment: "center",
-  },
-  {
-    dataField: "CurrencyProfitDigits",
-    caption: "Currency Profit Digits",
-    alignment: "center",
-  },
-  {
-    dataField: "CurrencyMargin",
-    caption: "Currency Margin",
-    alignment: "center",
-  },
-  {
-    dataField: "CurrencyMarginDigits",
-    caption: "Currency Margin Digits",
-    alignment: "center",
-  },
-  {
-    dataField: "Color",
-    caption: "Color",
-    alignment: "center",
-  },
-  {
-    dataField: "ColorBackground",
-    caption: "Color Background",
-    alignment: "center",
-  },
-  {
-    dataField: "Digits",
-    caption: "Digits",
-    alignment: "center",
-  },
-  {
-    dataField: "Point",
-    caption: "Point",
-    alignment: "center",
-  },
-  {
-    dataField: "Multiply",
-    caption: "Multiply",
-    alignment: "center",
-  },
-  {
-    dataField: "TickFlags",
-    caption: "TickFlags",
-    alignment: "center",
-  },
-  {
-    dataField: "TickBookDepth",
-    caption: "TickBookDepth",
-    alignment: "center",
-  },
-  {
-    dataField: "TickChartMode",
-    caption: "TickChartMode",
-    alignment: "center",
-  },
-  {
-    dataField: "SubscriptionsDelay",
-    caption: "SubscriptionsDelay",
-    alignment: "center",
-  },
-  {
-    dataField: "FilterSoftTicks",
-    caption: "FilterSoftTicks",
-    alignment: "center",
-  },
-  {
-    dataField: "FilterHard",
-    caption: "FilterHard",
-    alignment: "center",
-  },
-  {
-    dataField: "FilterHardTicks",
-    caption: "FilterHardTicks",
-    alignment: "center",
-  },
-  {
-    dataField: "FilterDiscard",
-    caption: "FilterDiscard",
-    alignment: "center",
-  },
-  {
-    dataField: "FilterSpreadMax",
-    caption: "FilterSpreadMax",
-    alignment: "center",
-  },
-  {
-    dataField: "FilterSpreadMin",
-    caption: "FilterSpreadMin",
-    alignment: "center",
-  },
-
-  {
-    dataField: "FilterGap",
-    caption: "FilterGap",
-    alignment: "center",
-  },
-  {
-    dataField: "FilterGapTicks",
-    caption: "FilterGapTicks",
-    alignment: "center",
-  },
-  {
-    dataField: "TradeMode",
-    caption: "TradeMode",
-    alignment: "center",
-  },
-  {
-    dataField: "TradeFlags",
-    caption: "TradeFlags",
-    alignment: "center",
-  },
-  {
-    dataField: "CalcMode",
-    caption: "CalcMode",
-    alignment: "center",
-  },
-  {
-    dataField: "ExecMode",
-    caption: "ExecMode",
-    alignment: "center",
-  },
-  {
-    dataField: "GTCMode",
-    caption: "GTCMode",
-    alignment: "center",
-  },
-  {
-    dataField: "FillFlags",
-    caption: "FillFlags",
-    alignment: "center",
-  },
-  {
-    dataField: "ExpirFlags",
-    caption: "ExpirFlags",
-    alignment: "center",
-  },
-  {
-    dataField: "OrderFlags",
-    caption: "OrderFlags",
-    alignment: "center",
-  },
-  {
-    dataField: "Spread",
-    caption: "Spread",
-    alignment: "center",
-  },
-  {
-    dataField: "SpreadBalance",
-    caption: "SpreadBalance",
-    alignment: "center",
-  },
-  {
-    dataField: "SpreadDiff",
-    caption: "SpreadDiff",
-    alignment: "center",
-  },
-  {
-    dataField: "SpreadDiffBalance",
-    caption: "SpreadDiffBalance",
-    alignment: "center",
-  },
-
-  {
-    dataField: "TickValue",
-    caption: "TickValue",
-    alignment: "center",
-  },
-
-  {
-    dataField: "TickSize",
-    caption: "TickSize",
-    alignment: "center",
-  },
-
-  {
-    dataField: "ContractSize",
-    caption: "ContractSize",
-    alignment: "center",
-  },
-
-  {
-    dataField: "StopsLevel",
-    caption: "StopsLevel",
-    alignment: "center",
-  },
-
-  {
-    dataField: "FreezeLevel",
-    caption: "FreezeLevel",
-    alignment: "center",
-  },
-
-  {
-    dataField: "QuotesTimeout",
-    caption: "QuotesTimeout",
-    alignment: "center",
-  },
-
-  {
-    dataField: "VolumeMinExt",
-    caption: "VolumeMinExt",
-    alignment: "center",
-  },
-  {
-    dataField: "VolumeMaxExt",
-    caption: "VolumeMaxExt",
-    alignment: "center",
-  },
-  {
-    dataField: "VolumeStepExt",
-    caption: "VolumeStepExt",
-    alignment: "center",
-  },
-  {
-    dataField: "VolumeLimitExt",
-    caption: "VolumeLimitExt",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginFlags",
-    caption: "MarginFlags",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginInitial",
-    caption: "MarginInitial",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginMaintenance",
-    caption: "MarginMaintenance",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginInitialBuy",
-    caption: "MarginInitialBuy",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginInitialSell",
-    caption: "MarginInitialSell",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginInitialBuyLimit",
-    caption: "MarginInitialBuyLimit",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginInitialSellLimit",
-    caption: "MarginInitialSellLimit",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginInitialBuyStop",
-    caption: "MarginInitialBuyStop",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginInitialSellStop",
-    caption: "MarginInitialSellStop",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginInitialBuyStopLimit",
-    caption: "MarginInitialBuyStopLimit",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginInitialSellStopLimit",
-    caption: "MarginInitialSellStopLimit",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginMaintenanceBuy",
-    caption: "MarginMaintenanceBuy",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginMaintenanceSell",
-    caption: "MarginMaintenanceSell",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginMaintenanceBuyLimit",
-    caption: "MarginMaintenanceBuyLimit",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginMaintenanceSellLimit",
-    caption: "MarginMaintenanceSellLimit",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginMaintenanceBuyStop",
-    caption: "MarginMaintenanceBuyStop",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginMaintenanceSellStop",
-    caption: "MarginMaintenanceSellStop",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginMaintenanceBuyStopLimit",
-    caption: "MarginMaintenanceBuyStopLimit",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginMaintenanceSellStopLimit",
-    caption: "MarginMaintenanceSellStopLimit",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginRateLiquidity",
-    caption: "MarginRateLiquidity",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginHedged",
-    caption: "MarginHedged",
-    alignment: "center",
-  },
-  {
-    dataField: "MarginRateCurrency",
-    caption: "MarginRateCurrency",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapMode",
-    caption: "SwapMode",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapLong",
-    caption: "SwapLong",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapShort",
-    caption: "SwapShort",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapFlags",
-    caption: "SwapFlags",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapYearDay",
-    caption: "SwapYearDay",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapRateSunday",
-    caption: "SwapRateSunday",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapRateMonday",
-    caption: "SwapRateMonday",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapRateTuesday",
-    caption: "SwapRateTuesday",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapRateWednesday",
-    caption: "SwapRateWednesday",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapRateThursday",
-    caption: "SwapRateThursday",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapRateFriday",
-    caption: "SwapRateFriday",
-    alignment: "center",
-  },
-  {
-    dataField: "SwapRateSaturday",
-    caption: "SwapRateSaturday",
-    alignment: "center",
-  },
-  {
-    dataField: "REFlags",
-    caption: "REFlags",
-    alignment: "center",
-  },
-  {
-    dataField: "RETimeout",
-    caption: "RETimeout",
-    alignment: "center",
-  },
-  {
-    dataField: "IECheckMode",
-    caption: "IECheckMode",
-    alignment: "center",
-  },
-  {
-    dataField: "IETimeout",
-    caption: "IETimeout",
-    alignment: "center",
-  },
-  {
-    dataField: "IESlipProfit",
-    caption: "IESlipProfit",
-    alignment: "center",
-  },
-  {
-    dataField: "IESlipLosing",
-    caption: "IESlipLosing",
-    alignment: "center",
-  },
-  {
-    dataField: "IEVolumeMaxExt",
-    caption: "IEVolumeMaxExt",
-    alignment: "center",
-  },
-  {
-    dataField: "PriceSettle",
-    caption: "PriceSettle",
-    alignment: "center",
-  },
-  {
-    dataField: "PriceLimitMax",
-    caption: "PriceLimitMax",
-    alignment: "center",
-  },
-  {
-    dataField: "PriceLimitMin",
-    caption: "PriceLimitMin",
-    alignment: "center",
-  },
-  {
-    dataField: "PriceStrike",
-    caption: "PriceStrike",
-    alignment: "center",
-  },
-  {
-    dataField: "OptionMode",
-    caption: "OptionMode",
-    alignment: "center",
-  },
-  {
-    dataField: "FaceValue",
-    caption: "FaceValue",
-    alignment: "center",
-  },
-  {
-    dataField: "AccruedInterest",
-    caption: "AccruedInterest",
-    alignment: "center",
-  },
-  {
-    dataField: "SpliceType",
-    caption: "SpliceType",
-    alignment: "center",
-  },
-  {
-    dataField: "SpliceTimeType",
-    caption: "SpliceTimeType",
-    alignment: "center",
-  },
-  {
-    dataField: "SpliceTimeDays",
-    caption: "SpliceTimeDays",
-    alignment: "center",
-  },
-  {
-    dataField: "VolumeMin",
-    caption: "VolumeMin",
-    alignment: "center",
-  },
-  {
-    dataField: "VolumeMax",
-    caption: "VolumeMax",
-    alignment: "center",
-  },
-  {
-    dataField: "VolumeStep",
-    caption: "VolumeStep",
-    alignment: "center",
-  },
-  {
-    dataField: "VolumeLimit",
-    caption: "VolumeLimit",
-    alignment: "center",
-  },
-  {
-    dataField: "IEVolumeMax",
-    caption: "IEVolumeMax",
     alignment: "center",
   },
 ];
@@ -1144,14 +572,21 @@ export const ManagerDataColumns = [
   },
   {
     dataField: "server_id",
-    caption: "Server id",
+    caption: "Server Name",
     alignment: "center",
+    hideColumn: true,
   },
   {
     dataField: "password",
     caption: "Password",
     alignment: "center",
   },
+  {
+    dataField: "server_name",
+    caption: "Server Name",
+    alignment: "center",
+  },
+  
 ];
 
 export const CoverageServerDataColumns = [
@@ -1164,6 +599,16 @@ export const CoverageServerDataColumns = [
   {
     dataField: "name",
     caption: "Name",
+    alignment: "center",
+  },
+  {
+    dataField: "host",
+    caption: "Host",
+    alignment: "center",
+  },
+  {
+    dataField: "port",
+    caption: "port",
     alignment: "center",
   },
 ];
@@ -1197,3 +642,105 @@ export const CoverageAccountDataColumns = [
     alignment: "center",
   },
 ];
+
+export const MT5SymbolDataColumns = [
+  {
+    dataField: "Symbol_ID",
+    caption: "Symbol Id",
+    alignment: "left",
+    hideColumn: true,
+  },
+  {
+    dataField: "Symbol",
+    caption: "Symbol",
+    alignment: "center",
+  },
+  {
+    dataField: "Path",
+    caption: "Path",
+    alignment: "center",
+  },
+  {
+    dataField: "Digits",
+    caption: "Digits",
+    alignment: "center",
+  },
+
+  {
+    dataField: "CalcMode",
+    caption: "CalcMode",
+    alignment: "center",
+  },
+
+  {
+    dataField: "TickValue",
+    caption: "TickValue",
+    alignment: "center",
+  },
+  {
+    dataField: "TickSize",
+    caption: "TickSize",
+    alignment: "center",
+  },
+
+  {
+    dataField: "ContractSize",
+    caption: "ContractSize",
+    alignment: "center",
+  },
+];
+
+export const SymbolDataColumns = [
+  {
+    dataField: "id",
+    caption: "Id",
+    alignment: "left",
+    hideColumn: true,
+  },
+  {
+    dataField: "name",
+    caption: "Name",
+    alignment: "center",
+  },
+  {
+    dataField: "symbol",
+    caption: "Symbol",
+    alignment: "center",
+  },
+  {
+    dataField: "multiplier",
+    caption: "Multiplier",
+    alignment: "center",
+  },
+  {
+    dataField: "server_id",
+    caption: "Server Name",
+    alignment: "center",
+    groupIndex: 1
+  },
+];
+
+export const SuffixDataColumns = [
+  {
+    dataField: "id",
+    caption: "Id",
+    alignment: "left",
+    hideColumn: true,
+  },
+  {
+    dataField: "suffix",
+    caption: "Suffix",
+    alignment: "center",
+  },
+  {
+    dataField: "multiplier",
+    caption: "Multiplier",
+    alignment: "center",
+  },
+  {
+    dataField: "config_id",
+    caption: "Config Id",
+    alignment: "center",
+  },
+];
+

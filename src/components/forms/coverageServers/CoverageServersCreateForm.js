@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../../common/FormContainer";
 import { TextField, Button, Typography } from "@mui/material";
+import TypographyContainer from "../../common/TypographyContainer";
 
 // Start relative variables
 import { CoverageServerDataColumns } from "../../../utils/constants/Constants";
@@ -17,6 +18,8 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
   const columns = CoverageServerDataColumns;
   const [formData, setFormData] = useState({
     [columns[1].dataField]: "",
+    [columns[2].dataField]: "",
+    [columns[3].dataField]: "",
   });
 
   const handleSubmit = async (e) => {
@@ -28,6 +31,8 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
     if (success) {
       setFormData({
         [columns[1].dataField]: "",
+        [columns[2].dataField]: "",
+        [columns[3].dataField]: "",
       });
       refreshPage();
     }
@@ -47,9 +52,9 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
 
   return (
     <FormContainer>
-      <Typography variant="h4" component="h1" gutterBottom>
+     <TypographyContainer>
         {formTitle}
-      </Typography>
+     </TypographyContainer>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <TextField
@@ -59,6 +64,26 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
             name={columns[1].dataField}
             label={columns[1].caption}
             value={formData[columns[1].dataField]}
+            onChange={handleChange}
+          />
+
+<TextField
+            type="text"
+            variant="outlined"
+            required
+            name={columns[2].dataField}
+            label={columns[2].caption}
+            value={formData[columns[2].dataField]}
+            onChange={handleChange}
+          />
+
+<TextField
+            type="number"
+            variant="outlined"
+            required
+            name={columns[3].dataField}
+            label={columns[3].caption}
+            value={formData[columns[3].dataField]}
             onChange={handleChange}
           />
         </div>

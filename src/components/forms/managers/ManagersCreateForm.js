@@ -13,6 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import FormContainer from "../../common/FormContainer";
+import TypographyContainer from "../../common/TypographyContainer";
 
 // Start relative variables
 import { ManagerDataColumns } from "../../../utils/constants/Constants";
@@ -112,16 +113,17 @@ const ManagersCreateForm = ({ createFormVisibility, refreshPage }) => {
 
   return (
     <FormContainer>
-      <Typography variant="h4" component="h1" gutterBottom>
+     <TypographyContainer>
         {formTitle}
-      </Typography>
+     </TypographyContainer>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          
           <FormControl sx={{ width: "100%" }} variant="outlined">
             <Autocomplete
               id="outlined-autocomplete"
               options={mt5Managers}
-              getOptionLabel={(option) => option.server}
+              getOptionLabel={(option) => option.server_name}
               value={
                 mt5Managers.find(
                   (manager) => manager.server === formData[columns[3].dataField]

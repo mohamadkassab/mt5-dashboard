@@ -8,6 +8,7 @@ import FormContainer from "../../common/FormContainer";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { VisibilityOff, Visibility } from "@mui/icons-material/";
 import generatePassword from "random-password";
+import TypographyContainer from "../../common/TypographyContainer";
 // Start relative variables
 import { EditCoverageAccount } from "../../../utils/redux/actions/CoverageAccounts";
 import { CoverageAccountDataColumns } from "../../../utils/constants/Constants";
@@ -74,9 +75,9 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
 
   return (
     <FormContainer>
-      <Typography variant="h4" component="h1" gutterBottom>
+      <TypographyContainer>
         {formTitle}
-      </Typography>
+     </TypographyContainer>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <FormControl sx={{ width: "100%" }} variant="outlined">

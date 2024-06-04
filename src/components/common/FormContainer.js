@@ -16,7 +16,7 @@ const FormContainer = ({children})=>{
         p: 3,
         borderRadius: 1,
         boxShadow: 3,
-        zIndex: 10,
+        zIndex: 1200,
       }}
       component={Paper}
     >

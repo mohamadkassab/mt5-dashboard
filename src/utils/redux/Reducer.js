@@ -39,6 +39,15 @@ import {
   GET_COVERAGEACCOUNT_REQUEST,
   GET_COVERAGEACCOUNT_SUCCESS,
   GET_COVERAGEACCOUNT_FAILURE,
+  GET_MT5SYMBOL_REQUEST,
+  GET_MT5SYMBOL_SUCCESS,
+  GET_MT5SYMBOL_FAILURE,
+  GET_SYMBOL_REQUEST,
+  GET_SYMBOL_SUCCESS,
+  GET_SYMBOL_FAILURE,
+  GET_SUFFIX_REQUEST,
+  GET_SUFFIX_SUCCESS,
+  GET_SUFFIX_FAILURE,
 } from "./ActionTypes";
 import produce from "immer";
 import { ATFXTOKEN } from "../constants/Constants";
@@ -54,7 +63,11 @@ const initialState = {
   mt5Managers: [],
   coverageServers:[],
   coverageAccounts:[],
+  mt5Symbols:[],
+  symbols:[],
+  suffixes:[],
   isAuthenticated: localStorage.getItem(ATFXTOKEN) || false,
+  blur: false,
   loading: false,
   success: false,
   error: false,
@@ -206,7 +219,7 @@ const reducer = produce((draft, action) => {
       break;    
 
      // MANAGERS
-     case GET_MANAGER_REQUEST:
+    case GET_MANAGER_REQUEST:
       draft.managers = [];
       draft.error = false;
       draft.loading = true;
@@ -256,8 +269,8 @@ const reducer = produce((draft, action) => {
       draft.loading = false;
       break;
 
-      // COVERAGEACCOUNTS
-      case GET_COVERAGEACCOUNT_REQUEST:
+    // COVERAGEACCOUNTS
+    case GET_COVERAGEACCOUNT_REQUEST:
       draft.coverageAccounts= [];
       draft.error = false;
       draft.loading = true;
@@ -272,6 +285,58 @@ const reducer = produce((draft, action) => {
       draft.error = true;
       draft.loading = false;
       break;
+
+    // MT5SYMBOL
+    case GET_MT5SYMBOL_REQUEST:
+      draft.mt5Symbols= [];
+      draft.error = false;
+      draft.loading = true;
+      break;
+    case GET_MT5SYMBOL_SUCCESS:
+      draft.mt5Symbols = action.payload.map((item) => item);
+      draft.error = false;
+      draft.loading = false;
+      break;
+    case GET_MT5SYMBOL_FAILURE:
+      draft.mt5Symbols = [];
+      draft.error = true;
+      draft.loading = false;
+      break;
+
+    // SYMBOL
+    case GET_SYMBOL_REQUEST:
+      draft.symbols= [];
+      draft.error = false;
+      draft.loading = true;
+      break;
+    case GET_SYMBOL_SUCCESS:
+      draft.symbols = action.payload.map((item) => item);
+      draft.error = false;
+      draft.loading = false;
+      break;
+    case GET_SYMBOL_FAILURE:
+      draft.symbols = [];
+      draft.error = true;
+      draft.loading = false;
+      break;
+
+    // SUFFIX
+    case GET_SUFFIX_REQUEST:
+      draft.suffixes= [];
+      draft.error = false;
+      draft.loading = true;
+      break;
+    case GET_SUFFIX_SUCCESS:
+      draft.suffixes = action.payload.map((item) => item);
+      draft.error = false;
+      draft.loading = false;
+      break;
+    case GET_SUFFIX_FAILURE:
+      draft.suffixes = [];
+      draft.error = true;
+      draft.loading = false;
+      break;
+
 
     default:
       break;

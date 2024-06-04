@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../../common/FormContainer";
-import { TextField, Button, Typography, Autocomplete, FormControl,  InputLabel,
+import {
+  TextField,
+  Button,
+  Typography,
+  Autocomplete,
+  FormControl,
+  InputLabel,
   IconButton,
   InputAdornment,
-  OutlinedInput, } from "@mui/material";
-  import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+  OutlinedInput,
+} from "@mui/material";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { VisibilityOff, Visibility } from "@mui/icons-material/";
 import generatePassword from "random-password";
+import TypographyContainer from "../../common/TypographyContainer";
 
 // Start relative variables
 import { CoverageAccountDataColumns } from "../../../utils/constants/Constants";
@@ -35,7 +43,6 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
     await dispatch(CreateCoverageAccount(formData));
   };
 
-
   // End relative variables
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -48,21 +55,6 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
 
   const hideForm = () => {
     createFormVisibility(false);
-  };
-
-  
-  const passwordGenerator = async () => {
-    const password = await generatePassword({
-      length: 12,
-      numbers: true,
-      uppercase: true,
-      lowercase: true,
-      symbols: true,
-    });
-    setFormData({
-      ...formData,
-      password: password,
-    });
   };
 
   const fetchInitialData = async () => {
@@ -84,20 +76,17 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
 
   return (
     <FormContainer>
-      <Typography variant="h4" component="h1" gutterBottom>
-        {formTitle}
-      </Typography>
+      <TypographyContainer>{formTitle}</TypographyContainer>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-
-        <FormControl sx={{ width: "100%" }} variant="outlined">
+          <FormControl sx={{ width: "100%" }} variant="outlined">
             <Autocomplete
               id="outlined-autocomplete"
               options={coverageServers}
               getOptionLabel={(option) => option.name} // relative variable
               value={
                 coverageServers.find(
-                  (item) => item.id === formData[columns[1].dataField ]// relative variable
+                  (item) => item.id === formData[columns[1].dataField] // relative variable
                 ) || null
               }
               onChange={(event, newValue) => {
@@ -119,7 +108,6 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
             />
           </FormControl>
 
-
           <TextField
             type="text"
             variant="outlined"
@@ -130,7 +118,7 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
             onChange={handleChange}
           />
 
-<TextField
+          <TextField
             type="text"
             variant="outlined"
             required
@@ -159,21 +147,11 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
-
-                  <IconButton
-                    aria-label="password generator"
-                    edge="end"
-                    onClick={passwordGenerator}
-                  >
-                    <AutoAwesomeIcon />
-                  </IconButton>
                 </InputAdornment>
               }
               label={columns[4].caption}
             />
           </FormControl>
-
-          
         </div>
 
         <div className="flex ">

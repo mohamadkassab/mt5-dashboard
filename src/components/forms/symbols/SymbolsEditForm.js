@@ -9,31 +9,23 @@ import {
 import TypographyContainer from "../../common/TypographyContainer";
 
 // Start relative variables
-import { RoleDataColumns } from "../../../utils/constants/Constants";
-import { CreateRole } from "../../../utils/redux/actions/Roles";
+import { EditPermission } from "../../../utils/redux/actions/Permissions";
+import { PermissionDataColumns } from "../../../utils/constants/Constants";
 // End relative variables
 
-const RolesCreateForm = ({ createFormVisibility, refreshPage }) => {
+const SymbolsEditForm = ({ editFormVisibility, data, refreshPage }) => {
   const dispatch = useDispatch();
   const success = useSelector((state) => state.success);
   // Start relative variables
-  const formTitle = "Create Role";
-  const columns = RoleDataColumns;
+  const formTitle = "Edit Permission";
+  const columns = PermissionDataColumns;
   const [formData, setFormData] = useState({
-    [columns[1].dataField]: "",
+    [columns[0].dataField]: data[columns[0].dataField],
+    [columns[1].dataField]: data[columns[1].dataField],
+    [columns[2].dataField]: data[columns[2].dataField],
   });
+  // End relative variables
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await dispatch(CreateRole(formData));
-    if (success) {
-      setFormData({
-        [columns[1].dataField]: "",
-      });
-      refreshPage();
-    }
-  };
-    // End relative variables
 
   const handleChange = (event) => {
     setFormData({
@@ -42,18 +34,26 @@ const RolesCreateForm = ({ createFormVisibility, refreshPage }) => {
     });
   };
 
+
+
   const hideForm = () => {
-    createFormVisibility(false);
+    editFormVisibility(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await dispatch(EditPermission(formData));
+    if (success) {
+      refreshPage();
+    }
   };
 
   React.useEffect(() => {
     if (success) {
-      setFormData({
-        [columns[1].dataField]: "",
-      });
       refreshPage();
     }
   }, [success]);
+
 
   return (
     <FormContainer>
@@ -62,7 +62,7 @@ const RolesCreateForm = ({ createFormVisibility, refreshPage }) => {
      </TypographyContainer>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <TextField
+          <TextField
               type="text"
               variant="outlined"
               required
@@ -72,7 +72,15 @@ const RolesCreateForm = ({ createFormVisibility, refreshPage }) => {
               onChange={handleChange}
             />
 
-
+<TextField
+              type="text"
+              variant="outlined"
+              required
+              name={columns[2].dataField}
+              label={columns[2].caption}
+              value={formData[columns[2].dataField]}
+              onChange={handleChange}
+           />
           </div>
 
           <div className="flex ">
@@ -113,4 +121,4 @@ const RolesCreateForm = ({ createFormVisibility, refreshPage }) => {
   );
 };
 
-export default RolesCreateForm;
+export default SymbolsEditForm;

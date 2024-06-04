@@ -16,6 +16,7 @@ import {
   OutlinedInput,
   IconButton,
 } from "@mui/material";
+import TypographyContainer from "../../common/TypographyContainer";
 
 // Start relative variables
 import { EditConfiguration } from "../../../utils/redux/actions/Configurations";
@@ -97,9 +98,9 @@ const ConfigurationsEditForm = ({ editFormVisibility, data, refreshPage }) => {
 
   return (
     <FormContainer>
-        <Typography variant="h4" component="h1" gutterBottom>
-          {formTitle}
-        </Typography>
+    <TypographyContainer>
+        {formTitle}
+     </TypographyContainer>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <TextField

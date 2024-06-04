@@ -27,16 +27,17 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route element={<ProtectedRoute />}>
-            <Route path={Menu[0].path} element={<Dashboard />} />
-            <Route path={Menu[1].path} element={<ControlCenter />} />
-            <Route path={Menu[2].path} element={<ControlCenter />} />
-            <Route path={MT5Menu[0].path} element={<ControlCenter />} />
-            <Route path={MT5Menu[1].path} element={<ControlCenter />} />
-            <Route path={MT5Menu[2].path} element={<ControlCenter />} />
-            <Route path={MT5Menu[3].path} element={<ControlCenter />} />
-            <Route path={MT5Menu[4].path} element={<ControlCenter />} />
-            <Route path={MT5Menu[5].path} element={<ControlCenter />} />
-            <Route path={MT5Menu[5].path} element={<ControlCenter />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="admins" element={<ControlCenter />} />
+            <Route path="users" element={<ControlCenter />} />
+            <Route path="mt5Configurations" element={<ControlCenter />} />
+            <Route path="managers" element={<ControlCenter />} />
+            <Route path="coverageServers" element={<ControlCenter />} />
+            <Route path="coverageAccounts" element={<ControlCenter />} />
+            <Route path="permissions" element={<ControlCenter />} />
+            <Route path="roles" element={<ControlCenter />} />
+            <Route path="types" element={<ControlCenter />} />
+            <Route path="symbols" element={<ControlCenter />} />
           </Route>
         </Routes>
       </BrowserRouter>

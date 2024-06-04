@@ -9,6 +9,7 @@ import DataGrid, {
     Sorting,
     Export,
     Selection,
+    Scrolling,
   } from "devextreme-react/data-grid";
   
 import IconButton from "@mui/material/IconButton";
@@ -28,11 +29,16 @@ const DataGridTable = ({data, onExporting, allowedPageSizes, onEditing, onDeleti
     if (item.width) {
       columnProps.width = item.width;
     }
+    if(item.groupIndex){
+      columnProps.groupIndex = item.groupIndex;
+    }
     if(!item.hideColumn){
       return <Column key={index} {...columnProps}></Column>;
     }
+
   });
     return(
+      <div id="gridContainer">
         <DataGrid
         id="gridContainer"
         dataSource={data}
@@ -45,26 +51,27 @@ const DataGridTable = ({data, onExporting, allowedPageSizes, onEditing, onDeleti
         columnMinWidth={50}
         allowUpdating={true}
       >
+        <Scrolling mode="virtual" />
         <Export enabled={true} allowExportSelectedData={true} />
-
         <SearchPanel visible={true} placeholder="Search..." />
         <Selection mode="multiple" />
-        <Grouping
-          contextMenuEnabled={true}
-          autoExpandAll={true}
-          expandMode="rowClick"
-        />
+        <Grouping 
+         contextMenuEnabled={true}
+        autoExpandAll={false} 
+        expandMode="rowClick"/>
         <GroupPanel visible={true} emptyPanelText="" />
-        <Pager
+   
+       
+        {/* <Pager
           allowedPageSizes={allowedPageSizes}
           showInfo={true}
           showNavigationButtons={true}
           showPageSizeSelector={true}
           visible={true}
           displayMode={"compact"}
-        />
-        <Paging defaultPageSize={allowedPageSizes[0]} />
-        <ColumnChooser enabled={false} mode="select" />
+        /> */}
+        {/* <Paging defaultPageSize={allowedPageSizes[0]} /> */}
+        <ColumnChooser enabled={false}/>
         <Sorting mode="multiple" />
 
         {columnsDiv}
@@ -93,6 +100,7 @@ const DataGridTable = ({data, onExporting, allowedPageSizes, onEditing, onDeleti
           )}
         />
       </DataGrid>
+      </div>
     )
 }
 

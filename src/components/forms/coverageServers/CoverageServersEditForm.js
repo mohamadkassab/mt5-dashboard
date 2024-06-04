@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import generatePassword from "random-password";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { VisibilityOff, Visibility } from "@mui/icons-material/";
 import { TextField, Button, Typography } from "@mui/material";
 import FormContainer from "../../common/FormContainer";
+import TypographyContainer from "../../common/TypographyContainer";
 
 // Start relative variables
 import { EditCoverageServer } from "../../../utils/redux/actions/CoverageServers";
@@ -22,6 +20,8 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
   const [formData, setFormData] = useState({
     [columns[0].dataField]: data[columns[0].dataField],
     [columns[1].dataField]: data[columns[1].dataField],
+    [columns[2].dataField]: data[columns[2].dataField],
+    [columns[3].dataField]: data[columns[3].dataField],
   });
   // End relative variables
 
@@ -49,9 +49,9 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
 
   return (
     <FormContainer>
-      <Typography variant="h4" component="h1" gutterBottom>
+     <TypographyContainer>
         {formTitle}
-      </Typography>
+     </TypographyContainer>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <TextField
@@ -60,6 +60,25 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
             name={columns[1].dataField}
             label={columns[1].caption}
             value={formData[columns[1].dataField]}
+            onChange={handleChange}
+          />
+          <TextField
+            type="text"
+            variant="outlined"
+            required
+            name={columns[2].dataField}
+            label={columns[2].caption}
+            value={formData[columns[2].dataField]}
+            onChange={handleChange}
+          />
+
+<TextField
+            type="number"
+            variant="outlined"
+            required
+            name={columns[3].dataField}
+            label={columns[3].caption}
+            value={formData[columns[3].dataField]}
             onChange={handleChange}
           />
         </div>

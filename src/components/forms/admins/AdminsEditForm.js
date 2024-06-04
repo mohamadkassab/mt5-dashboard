@@ -18,6 +18,7 @@ import {
   IconButton,
 } from "@mui/material";
 import FormContainer from "../../common/FormContainer";
+import TypographyContainer from "../../common/TypographyContainer";
 
 // Start relative variables
 import { EditAdmin } from "../../../utils/redux/actions/Admins";
@@ -94,9 +95,9 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
 
   return (
     <FormContainer>
-      <Typography variant="h4" component="h1" gutterBottom>
-        {formTitle}
-      </Typography>
+        <TypographyContainer>
+     {formTitle}
+     </TypographyContainer>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <TextField

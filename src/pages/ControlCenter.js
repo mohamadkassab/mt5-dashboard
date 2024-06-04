@@ -10,6 +10,7 @@ import TypesDataTable from "../components/tables/TypesDataTable";
 import ManagersDataTable from '../components/tables/ManagersDataTable';
 import CoverageServersDataTable from "../components/tables/CoverageServersDataTable";
 import CoverageAccountsDataTable from "../components/tables/CoverageAccountsDataTable";
+import SymbolsDataTable from "../components/tables/SymbolsDataTable";
 import { useLocation } from "react-router-dom";
 
 const ControlCenter = () => {
@@ -34,16 +35,16 @@ const ControlCenter = () => {
   });
   return (
     <DefaultLayout componentName={pageName}>
-      {location.pathname === Menu[1].path ? <AdminsDataTable /> : <></>}
-      {location.pathname === Menu[2].path ? <UsersDataTable /> : <></>}
-      {location.pathname === MT5Menu[0].path ? <ConfigurationsDataTable /> : <></>}
-      {location.pathname === MT5Menu[1].path ? <CoverageAccountsDataTable /> : <></>}
-      {location.pathname === MT5Menu[2].path ? <CoverageServersDataTable /> : <></>}
-      {location.pathname === MT5Menu[3].path ? <ManagersDataTable /> : <></>}
-      {location.pathname === MT5Menu[4].path ? <PermissionsDataTable /> : <></>}
-      {location.pathname === MT5Menu[5].path ? <RolesDataTable /> : <></>}
-      {location.pathname === MT5Menu[6].path ? <TypesDataTable /> : <></>}
-
+      {location.pathname === "/admins" ? <AdminsDataTable /> : <></>}
+      {location.pathname === "/users" ? <UsersDataTable /> : <></>}
+      {location.pathname === "/mt5Configurations" ? <ConfigurationsDataTable /> : <></>}
+      {location.pathname === "/managers" ? <ManagersDataTable /> : <></>}
+      {location.pathname === "/coverageServers" ? <CoverageServersDataTable /> : <></>}
+      {location.pathname === "/coverageAccounts" ? <CoverageAccountsDataTable /> : <></>}
+      {location.pathname === "/permissions" ? <PermissionsDataTable /> : <></>}
+      {location.pathname === "/roles" ? <RolesDataTable /> : <></>}
+      {location.pathname === "/types" ? <TypesDataTable /> : <></>}
+      {location.pathname === "/symbols" ? <SymbolsDataTable /> : <></>}
     </DefaultLayout>
   );
 };
