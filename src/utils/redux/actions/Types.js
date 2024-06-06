@@ -3,6 +3,7 @@ import {
   API_TYPE,
   ATFXTOKEN,
   GLOBAL_REQUEST_TIMEOUT,
+  API_401_RES
 } from "../../constants/Constants";
 import {
   GET_TYPE_REQUEST,
@@ -46,6 +47,10 @@ export const GetTypes = () => {
           code: error.code,
         };
         dispatch({ type: GET_TYPE_FAILURE, payload: errorPayload });
+        if(errorPayload.message === API_401_RES){
+          dispatch({ type: ISAUTHENTICATED_FAILURE });
+        }
+        
       }
     };
   };
@@ -82,8 +87,11 @@ export const CreateType = (params) => {
         message: error.message,
         code: error.code,
       };
-      console.log(error);
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -125,6 +133,10 @@ export const EditType = (params) => {
         code: error.code,
       };
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -162,6 +174,10 @@ export const DeleteType = (params) => {
         code: error.code,
       };
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };

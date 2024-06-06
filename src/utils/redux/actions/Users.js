@@ -5,6 +5,7 @@ import {
   API_USER_EDIT,
   ATFXTOKEN,
   GLOBAL_REQUEST_TIMEOUT,
+  API_401_RES
 } from "../../constants/Constants";
 import {
   GET_USER_REQUEST,
@@ -50,6 +51,10 @@ export const GetUsers = () => {
         code: error.code,
       };
       dispatch({ type: GET_USER_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -85,8 +90,11 @@ export const CreateUser = (params) => {
         message: error.message,
         code: error.code,
       };
-      console.log(error);
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -128,6 +136,10 @@ export const EditUser = (params) => {
         code: error.code,
       };
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -164,8 +176,11 @@ export const DeleteUser = (params) => {
         message: error.message,
         code: error.code,
       };
-      console.log(error);
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };

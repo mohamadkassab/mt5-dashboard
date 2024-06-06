@@ -4,6 +4,7 @@ import {
   API_ADMIN_EDIT,
   ATFXTOKEN,
   GLOBAL_REQUEST_TIMEOUT,
+  API_401_RES,
 } from "../../constants/Constants";
 import {
   GET_ADMIN_REQUEST,
@@ -46,6 +47,10 @@ export const GetAdmins = () => {
         code: error.code,
       };
       dispatch({ type: GET_ADMIN_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -82,8 +87,11 @@ export const CreateAdmin = (params) => {
         message: error.message,
         code: error.code,
       };
-      console.log(error);
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -124,6 +132,10 @@ export const EditAdmin = (params) => {
         code: error.code,
       };
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -160,8 +172,11 @@ export const DeleteAdmin = (params) => {
         message: error.message,
         code: error.code,
       };
-      console.log(error);
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };

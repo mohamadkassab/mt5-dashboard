@@ -3,6 +3,7 @@ import {
   API_PERMISSION,
   ATFXTOKEN,
   GLOBAL_REQUEST_TIMEOUT,
+  API_401_RES
 } from "../../constants/Constants";
 import {
   GET_PERMISSION_REQUEST,
@@ -45,6 +46,10 @@ export const GetPermissions = () => {
         code: error.code,
       };
       dispatch({ type: GET_PERMISSION_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -81,8 +86,11 @@ export const CreatePermission = (params) => {
         message: error.message,
         code: error.code,
       };
-      console.log(error);
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -123,6 +131,10 @@ export const EditPermission = (params) => {
         code: error.code,
       };
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -159,8 +171,11 @@ export const DeletePermission = (params) => {
           message: error.message,
           code: error.code,
         };
-        console.log(error);
         dispatch({ type: SEL_FAILURE, payload: errorPayload });
+        if(errorPayload.message === API_401_RES){
+          dispatch({ type: ISAUTHENTICATED_FAILURE });
+        }
+        
       }
     };
   };

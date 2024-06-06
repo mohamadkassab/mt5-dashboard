@@ -35,19 +35,17 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
   const columns = SymbolDataColumns;
   const mt5Symbols = useSelector((state) => state.mt5Symbols);
   const [symbols, setSymbols] = React.useState([]);
-  const [nbrSuffixes, setNbrSuffixes] = useState([]);
-  const [suffixes, setSuffixes] = useState({});
-  const [multipliers, setMultipliers] = useState({});
+  const [symbolSuffixes, setSymbolSuffixes] = useState([]);
   const [formData, setFormData] = useState({
     [columns[1].dataField]: "",
     [columns[4].dataField]: "",
     [columns[2].dataField]: "",
-    [columns[3].dataField]: "",
+    [columns[3].dataField]: 0,
   });
   const serverId = formData[columns[4].dataField];
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(CreateSymbolConfiguration(formData, suffixes, multipliers));
+    await dispatch(CreateSymbolConfiguration(formData, symbolSuffixes));
   };
   // End relative variables
 
@@ -56,20 +54,36 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
       ...formData,
       [event.target.name]: event.target.value,
     });
+    console.log(symbolSuffixes);
+    console.log(symbols);
+  
+    
   };
 
   const handleChangeSuffix = (event) => {
-    setSuffixes({
-      ...suffixes,
-      [event.target.name]: event.target.value,
+    setSymbolSuffixes((prevSuffixes) => {
+      const newSuffixes = prevSuffixes.map((suffixObj, i) => {
+        if (i === event.target.name) {
+          return { ...suffixObj, suffix: event.target.value };
+        }
+        return suffixObj;
+      });
+      return newSuffixes;
     });
   };
 
+
   const handleChangeMultiplier = (index, event) => {
-    setMultipliers({
-      ...multipliers,
-      [index]: event.target.value,
+    setSymbolSuffixes((prevSuffixes) => {
+      const newSuffixes = prevSuffixes.map((suffixObj, i) => {
+        if (i === index) {
+          return { ...suffixObj, multiplier: event.target.value };
+        }
+        return suffixObj;
+      });
+      return newSuffixes;
     });
+  
   };
 
   const hideForm = () => {
@@ -81,30 +95,23 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
   };
 
   const addSuffix = () => {
-    setNbrSuffixes(["", ...nbrSuffixes]);
+    const emptySymbol = { suffix: '', multiplier: 0 };
+    setSymbolSuffixes((prevSuffixes) => {
+      return [...prevSuffixes, emptySymbol];
+    });
   };
 
   const removeSuffix = (index) => {
     try {
-      const updatedSuffixes = { ...suffixes };
-      delete updatedSuffixes[index];
-      const reorderedSuffixes = {};
-      Object.keys(updatedSuffixes).forEach((key, index) => {
-        reorderedSuffixes[index] = updatedSuffixes[key];
+      setSymbolSuffixes((prevSuffixes) => {
+        return prevSuffixes.filter((_, i) => i !== index);
       });
-      setSuffixes(reorderedSuffixes);
-
-      const updatedMultipliers = { ...multipliers };
-      delete updatedMultipliers[index];
-      const reorderedMultipliers = {};
-      Object.keys(updatedMultipliers).forEach((key, index) => {
-        reorderedMultipliers[index] = updatedMultipliers[key];
-      });
-      setMultipliers(reorderedMultipliers);
-
-      setNbrSuffixes(nbrSuffixes.slice(1));
     } catch (error) {}
   };
+
+  React.useEffect(() => {
+console.log(symbolSuffixes);
+  }, [symbolSuffixes]);
 
   React.useEffect(() => {
     fetchInitialData();
@@ -115,11 +122,9 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
         [columns[1].dataField]: "",
         [columns[4].dataField]: "",
         [columns[2].dataField]: "",
-        [columns[3].dataField]: "",
+        [columns[3].dataField]: 0,
       });
-      setNbrSuffixes([]);
-      setSuffixes({});
-      setMultipliers({});
+      setSymbolSuffixes([]);
       refreshPage();
     }
   }, [success]);
@@ -130,11 +135,9 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
         ...formData,
 
         [columns[2].dataField]: "",
-        [columns[3].dataField]: "",
+        [columns[3].dataField]: 0,
       });
-      setNbrSuffixes([]);
-      setSuffixes({});
-      setMultipliers({});
+      setSymbolSuffixes([]);
       const server = mt5Symbols.find((server) => server.server === serverId);
       if (server && server.symbols) {
         setSymbols(server.symbols);
@@ -195,14 +198,14 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
               value={
                 symbols.find(
                   (symbol) =>
-                    symbol.Symbol_ID === formData[columns[2].dataField]
+                    symbol.Symbol === formData[columns[2].dataField]
                 ) || null
               }
               onChange={(event, newValue) => {
                 handleChange({
                   target: {
                     name: columns[2].dataField,
-                    value: newValue ? newValue.Symbol_ID : "",
+                    value: newValue ? newValue.Symbol : "",
                   },
                 });
               }}
@@ -230,9 +233,9 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
           <div className="col-span-2 gridContainer">
             <ListItemButton
               sx={{
-                minHeight: 48,
                 justifyContent: "initial",
                 px: 1,
+                maxWidth: 220
               }}
               onClick={addSuffix}
             >
@@ -254,12 +257,12 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
                 overflow: "auto",
 
                 width: "100%",
-                display: nbrSuffixes.length > 0 ? "block" : "none",
+                display: symbolSuffixes.length > 0 ? "block" : "none",
               }}
             >
               <div className="grid grid-cols-1 mt-1">
-                {nbrSuffixes.slice().map((suffix, rowKey) => {
-                  const index = nbrSuffixes.length - 1 - rowKey;
+                {symbolSuffixes.map((suffix, rowKey) => {
+                const index = symbolSuffixes.length - 1 - rowKey;
                   return (
                     <div className="flex gap-4" key={index}>
                       <FormControl
@@ -273,19 +276,24 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
                         <Autocomplete
                           id={`outlined-autocomplete-${index}`}
                           options={symbols.filter(symbol => 
-                            !Object.values(suffixes).includes(symbol.Symbol_ID) &&
-                            symbol.Symbol_ID !== formData[columns[2].dataField]
+                            !(symbolSuffixes.some(item => item.suffix === symbol.Symbol)) &&
+                            symbol.Symbol !== formData[columns[2].dataField]
                           ).sort((a, b) => {
-                            const target= symbols.find(symbol => symbol.Symbol_ID === formData[columns[2].dataField])
-                            const firstThreeLetters = target.Symbol.substring(0, 3);
-                            const aHasUSD = a.Symbol && a.Symbol.includes(firstThreeLetters);
-                            const bHasUSD = b.Symbol && b.Symbol.includes(firstThreeLetters);
-                            if (aHasUSD && !bHasUSD) {
-                                return -1;
-                            } else if (!aHasUSD && bHasUSD) {
-                                return 1;
-                            } else {
-                                return 0;
+                            try{
+                              // const target= symbols.find(symbol => symbol.Symbol_ID === formData[columns[2].dataField])
+                              // const firstThreeLetters = formData[columns[2].dataField].substring(0, 3);
+                              const aHasUSD = a.Symbol && a.Symbol.includes(formData[columns[2].dataField]);
+                              const bHasUSD = b.Symbol && b.Symbol.includes(formData[columns[2].dataField]);
+                              if (aHasUSD && !bHasUSD) {
+                                  return -1;
+                              } else if (!aHasUSD && bHasUSD) {
+                                  return 1;
+                              } else {
+                                  return 0;
+                              }
+                            }
+                            catch(error){
+                              return 0;
                             }
                         })}
                          
@@ -293,14 +301,14 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
                           getOptionLabel={(option) => option.Symbol}
                           value={
                             symbols.find(
-                              (symbol) => symbol.Symbol_ID === suffixes[index]
+                              (symbol) => symbol.Symbol === symbolSuffixes[index].suffix
                             ) || null
                           }
                           onChange={(event, newValue) => {
                             handleChangeSuffix({
                               target: {
                                 name: index,
-                                value: newValue ? newValue.Symbol_ID : "",
+                                value: newValue ? newValue.Symbol : "",
                               },
                             });
                           }}
@@ -319,7 +327,7 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
                           type="number"
                           required
                           key={`textfield-${index}`}
-                          value={multipliers[index] || 0}
+                          value={symbolSuffixes[index].multiplier}
                           onChange={(event) =>
                             handleChangeMultiplier(index, event)
                           }

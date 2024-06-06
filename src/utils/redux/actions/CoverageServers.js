@@ -3,6 +3,7 @@ import {
   API_COVERAGESERVER,
   ATFXTOKEN,
   GLOBAL_REQUEST_TIMEOUT,
+  API_401_RES
 } from "../../constants/Constants";
 import {
   GET_COVERAGESERVER_REQUEST,
@@ -45,6 +46,10 @@ export const GetCoverageServers = () => {
         code: error.code,
       };
       dispatch({ type: GET_COVERAGESERVER_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -81,8 +86,11 @@ export const CreateCoverageServer = (params) => {
         message: error.message,
         code: error.code,
       };
-      console.log(error);
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -123,6 +131,10 @@ export const EditCoverageServer = (params) => {
         code: error.code,
       };
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
@@ -159,8 +171,11 @@ export const DeleteCoverageServer = (params) => {
         message: error.message,
         code: error.code,
       };
-      console.log(error);
       dispatch({ type: SEL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };

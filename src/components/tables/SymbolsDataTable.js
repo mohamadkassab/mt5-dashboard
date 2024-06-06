@@ -7,10 +7,12 @@ import CreateButton from '../common/CreateButton';
 import DataGridTable from '../common/DataGridTable';
 
 // Start relative variables
-import { GetSymbols, DeleteSymbol } from "../../utils/redux/actions/Symbols";
+import { GetSymbols, DeleteSymbolConfiguration } from "../../utils/redux/actions/Symbols";
 import {SymbolDataColumns, ROWS_PER_PAGE} from "../../utils/constants/Constants";
 import SymbolsCreateForm from "../forms/symbols/SymbolsCreateForm";
 import SymbolsEditForm from "../forms/symbols/SymbolsEditForm";
+import { GetMT5Symbols } from "../../utils/redux/actions/MT5Symbols";
+import { GetSymbolSuffixes } from "../../utils/redux/actions/Symbols";
 // End relative variables
 
 const SymbolsDataTable = () => {
@@ -71,11 +73,13 @@ const SymbolsDataTable = () => {
 
 
   const onDelete = async () => {
-    await dispatch(DeleteSymbol(idToDelete));
+    await dispatch(DeleteSymbolConfiguration(idToDelete));
     refreshPage();
   };
 
-  const onEditing = (data) => {
+  const onEditing = async (data) => {
+    await dispatch(GetMT5Symbols()); 
+    await dispatch(GetSymbolSuffixes(data[[columns[0].dataField]])); 
     setDataToBeEdited(data);
     setEditForm(true);
   };

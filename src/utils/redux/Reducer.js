@@ -48,6 +48,9 @@ import {
   GET_SUFFIX_REQUEST,
   GET_SUFFIX_SUCCESS,
   GET_SUFFIX_FAILURE,
+  GET_SYMBOLSUFFIXES_REQUEST,
+  GET_SYMBOLSUFFIXES_SUCCESS,
+  GET_SYMBOLSUFFIXES_FAILURE
 } from "./ActionTypes";
 import produce from "immer";
 import { ATFXTOKEN } from "../constants/Constants";
@@ -66,6 +69,7 @@ const initialState = {
   mt5Symbols:[],
   symbols:[],
   suffixes:[],
+  symbolSuffixes:[],
   isAuthenticated: localStorage.getItem(ATFXTOKEN) || false,
   blur: false,
   loading: false,
@@ -114,6 +118,7 @@ const reducer = produce((draft, action) => {
       break;
     case ISAUTHENTICATED_FAILURE:
       draft.isAuthenticated = false;
+      draft.error = false;
       break;
 
     // ADMIN
@@ -333,6 +338,23 @@ const reducer = produce((draft, action) => {
       break;
     case GET_SUFFIX_FAILURE:
       draft.suffixes = [];
+      draft.error = true;
+      draft.loading = false;
+      break;
+
+    // SYMBOL SUFFIX
+    case GET_SYMBOLSUFFIXES_REQUEST:
+      draft.symbolSuffixes= [];
+      draft.error = false;
+      draft.loading = true;
+      break;
+    case GET_SYMBOLSUFFIXES_SUCCESS:
+      draft.symbolSuffixes = action.payload.map((item) => item);
+      draft.error = false;
+      draft.loading = false;
+      break;
+    case GET_SYMBOLSUFFIXES_FAILURE:
+      draft.symbolSuffixes = [];
       draft.error = true;
       draft.loading = false;
       break;

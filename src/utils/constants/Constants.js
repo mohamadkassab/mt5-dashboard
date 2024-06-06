@@ -53,6 +53,12 @@ export const API_SYMBOL = "/admins/MT5SymbolsConfigurations/";
 // SUFFIX
 export const API_SUFFIX = "/admins/MT5SymbolsSuffixes/";
 
+// SYMBOL CONFIGURATION
+export const API_SYMBOLCONFIGURATION = "/admins/MT5SymbolsConfigurationsAndSuffixes/";
+
+// API_401_RES
+export const API_401_RES = "Request failed with status code 401";
+
 export const Menu = [
   {
     name: "Dashboard",
@@ -715,8 +721,7 @@ export const SymbolDataColumns = [
   {
     dataField: "server_id",
     caption: "Server Name",
-    alignment: "center",
-    groupIndex: 1
+    alignment: "center"
   },
 ];
 

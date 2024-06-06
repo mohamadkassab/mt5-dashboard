@@ -3,6 +3,7 @@ import {
   API_MT5SYMBOL,
   ATFXTOKEN,
   GLOBAL_REQUEST_TIMEOUT,
+  API_401_RES
 } from "../../constants/Constants";
 import {
   GET_MT5SYMBOL_REQUEST,
@@ -40,8 +41,11 @@ export const GetMT5Symbols = () => {
         message: error.message,
         code: error.code,
       };
-      console.log(errorPayload);
       dispatch({ type: GET_MT5SYMBOL_FAILURE, payload: errorPayload });
+      if(errorPayload.message === API_401_RES){
+        dispatch({ type: ISAUTHENTICATED_FAILURE });
+      }
+      
     }
   };
 };
