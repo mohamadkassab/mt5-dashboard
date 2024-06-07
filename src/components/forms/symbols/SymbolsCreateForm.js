@@ -54,10 +54,7 @@ const SymbolsCreateForm = ({ createFormVisibility, refreshPage }) => {
       ...formData,
       [event.target.name]: event.target.value,
     });
-    console.log(symbolSuffixes);
-    console.log(symbols);
-  
-    
+
   };
 
   const handleChangeSuffix = (event) => {

@@ -52,6 +52,7 @@ export const GetSymbols = () => {
       dispatch({ type: GET_SYMBOL_FAILURE, payload: errorPayload });
       if(errorPayload.message === API_401_RES){
         dispatch({ type: ISAUTHENTICATED_FAILURE });
+        
       }
       
     }
@@ -135,8 +136,11 @@ export const CreateSymbolConfiguration = (formData, symbolSuffixes) => {
           message: error.message,
           code: error.code,
         };
-        console.log(errorPayload);
         dispatch({ type: SEL_FAILURE, payload: errorPayload });
+        if(errorPayload.message === API_401_RES){
+          dispatch({ type: ISAUTHENTICATED_FAILURE });
+        }
+        
       }
     };
   };
@@ -180,6 +184,10 @@ export const CreateSymbolConfiguration = (formData, symbolSuffixes) => {
           code: error.code,
         };
         dispatch({ type: SEL_FAILURE, payload: errorPayload });
+        if(errorPayload.message === API_401_RES){
+          dispatch({ type: ISAUTHENTICATED_FAILURE });
+        }
+        
       }
     };
   };
@@ -255,8 +263,11 @@ export const CreateSymbolConfiguration = (formData, symbolSuffixes) => {
           message: error.message,
           code: error.code,
         };
-        console.log(error);
         dispatch({ type: SEL_FAILURE, payload: errorPayload });
+        if(errorPayload.message === API_401_RES){
+          dispatch({ type: ISAUTHENTICATED_FAILURE });
+        }
+        
       }
     };
   };

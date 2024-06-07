@@ -187,7 +187,7 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
                   name={columns[4].dataField}
                 />
               }
-              label={formData.is_active ? "Active" : "Not Active"}
+              label={formData[columns[4].dataField] ? "Active" : "Not Active"}
             />
           </div>
         </div>
