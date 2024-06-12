@@ -2,10 +2,8 @@ import * as React from "react";
 import {
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   useMediaQuery,
-  Typography,
   useTheme,
   Dialog,
   Button,

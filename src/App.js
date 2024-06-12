@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Menu, MT5Menu } from "./utils/constants/Constants";
 import ControlCenter from "./pages/ControlCenter";
 import ProtectedRoute from "./utils/protectedRoute/ProtectedRoute";
 

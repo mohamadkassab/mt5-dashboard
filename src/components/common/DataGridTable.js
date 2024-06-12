@@ -2,8 +2,6 @@ import DataGrid, {
     Column,
     Grouping,
     GroupPanel,
-    Pager,
-    Paging,
     ColumnChooser,
     SearchPanel,
     Sorting,

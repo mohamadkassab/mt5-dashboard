@@ -6,8 +6,6 @@ import { VisibilityOff, Visibility } from "@mui/icons-material/";
 import {
   TextField,
   Button,
-  Typography,
-  Select,
   Autocomplete,
   FormControlLabel,
   Switch,
