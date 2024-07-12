@@ -28,6 +28,7 @@ const AdminsDataTable = () => {
   // Start relative variables
   const [itemToDelete, setItemToDelete] = useState("");
   const data = useSelector((state) => state.admins);
+  const [formattedData, setFormattedData] = useState([]);
   const columns = AdminDataColumns;
 
   useEffect(() => {
@@ -36,13 +37,18 @@ const AdminsDataTable = () => {
     }
   }, [dispatch, refresh]);
 
-
-  const onDeleting = (data) => {
-    setIdToDelete(data.id);
-    setItemToDelete(data.email);  // Relative variables
-    setShowConfirmDialog(true);
-  };
-
+  useEffect(() => {
+    if(data){
+      const newData = data.map((item,index) =>({
+        ...item,
+        is_active: item.is_active ? "Active" : "Not Active"
+        
+      }))
+      setFormattedData(newData);
+    }
+   
+  }, [data]);
+ 
   // End relative variables
 
 
@@ -56,6 +62,13 @@ const AdminsDataTable = () => {
     setRefresh(!refresh);
   };
 
+  const onDeleting = (data) => {
+    setIdToDelete(data.id);
+    setItemToDelete(data.email);  // Relative variables
+    setShowConfirmDialog(true);
+  };
+
+
   const confirmDelete = (response) => {
     if (response) {
       onDelete();
@@ -65,19 +78,17 @@ const AdminsDataTable = () => {
     setShowConfirmDialog(false);
   };
 
+  const onDelete = async () => {
+    await dispatch(DeleteAdmin(idToDelete));
+    refreshPage();
+  };
+
   const createFormVisibility = (props) => {
     setCreateForm(props);
   };
 
   const editFormVisibility = (props) => {
     setEditForm(props);
-  };
-
-
-
-  const onDelete = async () => {
-    await dispatch(DeleteAdmin(idToDelete));
-    refreshPage();
   };
 
   const onEditing = (data) => {
@@ -118,7 +129,7 @@ const AdminsDataTable = () => {
         <CreateButton onClick={onInserting}/>
           
         </div>
-        <DataGridTable data={data}  onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
+        <DataGridTable data={formattedData}  onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
 
       </div>
     </div>

@@ -4,11 +4,11 @@ export const booleanCellRender = ({ value }) => {
   return (
     <div
       style={{
-        color: value ? "#2e7d32" : "#d32f2f",
+        color: value === "Active" ? "#2e7d32" : "#d32f2f",
         fontWeight: "bold",
       }}
     >
-      {value ? "Active" : "Not Active"}
+      {value}
     </div>
   );
 };

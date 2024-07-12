@@ -23,6 +23,7 @@ const UsersDataTable = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [createForm, setCreateForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
+  const [formattedData, setFormattedData] = useState([]);
   const confirmSentece = "Are you sure you want to delete this user account";
   const location = useLocation();
   // Start relative variables
@@ -43,7 +44,17 @@ const UsersDataTable = () => {
 
   // End relative variables
 
-
+  useEffect(() => {
+    if(data){
+      const newData = data.map((item,index) =>({
+        ...item,
+        is_active: item.is_active ? "Active" : "Not Active"
+        
+      }))
+      setFormattedData(newData);
+    }
+   
+  }, [data]);
 
   const onExporting = (e) => {
     const fileName =  location.pathname;
@@ -115,7 +126,7 @@ const UsersDataTable = () => {
         <CreateButton onClick={onInserting}/>
         </div>
 
-        <DataGridTable data={data}  onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
+        <DataGridTable data={formattedData}  onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
       </div>
     </div>
   );
