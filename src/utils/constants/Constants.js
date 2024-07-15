@@ -592,6 +592,11 @@ export const ManagerDataColumns = [
     caption: "Server Name",
     alignment: "center",
   },
+  {
+    dataField: "path",
+    caption: "Path",
+    alignment: "center",
+  },
   
 ];
 

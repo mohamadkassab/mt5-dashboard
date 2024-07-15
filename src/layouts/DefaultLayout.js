@@ -261,7 +261,7 @@ const DefaultLayout = ({ componentName, children }) => {
         <DrawerHeader />
         {children}
       </Box>
-      {loading && <LoadingElement />}
+      {loading && <LoadingElement isDrawerOpen={open} componentName={componentName} />}
 
       {showSuccess && (
         <Snackbar open={true}>
