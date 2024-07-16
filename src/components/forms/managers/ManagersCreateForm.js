@@ -36,7 +36,6 @@ const ManagersCreateForm = ({ createFormVisibility, refreshPage }) => {
     [columns[2].dataField]: "",
     [columns[3].dataField]: "",
     [columns[4].dataField]: "",
-    [columns[6].dataField]: "",
   });
   const serverId = formData[columns[3].dataField];
   const handleSubmit = async (e) => {
@@ -92,7 +91,6 @@ const ManagersCreateForm = ({ createFormVisibility, refreshPage }) => {
         [columns[2].dataField]: "",
         [columns[3].dataField]: "",
         [columns[4].dataField]: "",
-        [columns[6].dataField]: "",
       });
       refreshPage();
     }
@@ -105,7 +103,6 @@ const ManagersCreateForm = ({ createFormVisibility, refreshPage }) => {
         [columns[1].dataField]: "",
         [columns[2].dataField]: "",
         [columns[4].dataField]: "",
-        [columns[6].dataField]: "",
       });
       const server = mt5Managers.find((server) => server.server === serverId);
       if (server && server.managers) {
@@ -234,15 +231,7 @@ const ManagersCreateForm = ({ createFormVisibility, refreshPage }) => {
             />
           </FormControl>
 
-          <TextField
-            type="text"
-            variant="outlined"
-            required
-            name={columns[6].dataField}
-            label={columns[6].caption}
-            value={formData[columns[6].dataField]}
-            onChange={handleChange}
-          />
+        
         </div>
 
         <div className="flex ">

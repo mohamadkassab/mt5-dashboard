@@ -592,11 +592,7 @@ export const ManagerDataColumns = [
     caption: "Server Name",
     alignment: "center",
   },
-  {
-    dataField: "path",
-    caption: "Path",
-    alignment: "center",
-  },
+
   
 ];
 
@@ -650,6 +646,11 @@ export const CoverageAccountDataColumns = [
   {
     dataField: "password",
     caption: "Password",
+    alignment: "center",
+  },
+  {
+    dataField: "path",
+    caption: "Path",
     alignment: "center",
   },
 ];

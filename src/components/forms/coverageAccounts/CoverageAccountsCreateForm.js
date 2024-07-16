@@ -36,6 +36,7 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
     [columns[2].dataField]: "",
     [columns[3].dataField]: "",
     [columns[4].dataField]: "",
+    [columns[5].dataField]: "",
   });
 
   const handleSubmit = async (e) => {
@@ -69,6 +70,7 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
         [columns[2].dataField]: "",
         [columns[3].dataField]: "",
         [columns[4].dataField]: "",
+        [columns[5].dataField]: "",
       });
       refreshPage();
     }
@@ -119,7 +121,7 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
           />
 
           <TextField
-            type="text"
+            type="number"
             variant="outlined"
             required
             name={columns[3].dataField}
@@ -152,6 +154,17 @@ const AdminsCreateForm = ({ createFormVisibility, refreshPage }) => {
               label={columns[4].caption}
             />
           </FormControl>
+
+          <TextField
+            type="text"
+            variant="outlined"
+            required
+            name={columns[5].dataField}
+            label={columns[5].caption}
+            value={formData[columns[5].dataField]}
+            onChange={handleChange}
+          />
+
         </div>
 
         <div className="flex ">
