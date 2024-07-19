@@ -30,6 +30,7 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
     [columns[2].dataField]: data[columns[2].dataField],
     [columns[3].dataField]: data[columns[3].dataField],
     [columns[4].dataField]: data[columns[4].dataField],
+    [columns[5].dataField]: data[columns[5].dataField],
   });
   // End relative variables
 
@@ -162,6 +163,17 @@ const AdminsEditForm = ({ editFormVisibility, data, refreshPage }) => {
               label={columns[4].caption}
             />
           </FormControl>
+          
+          <TextField
+            type="text"
+            variant="outlined"
+            required
+            name={columns[5].dataField}
+            label={columns[5].caption}
+            value={formData[columns[5].dataField]}
+            onChange={handleChange}
+          />
+          
         </div>
 
         <div className="flex ">

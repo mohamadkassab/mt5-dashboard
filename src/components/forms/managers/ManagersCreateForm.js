@@ -231,7 +231,6 @@ const ManagersCreateForm = ({ createFormVisibility, refreshPage }) => {
             />
           </FormControl>
 
-        
         </div>
 
         <div className="flex ">

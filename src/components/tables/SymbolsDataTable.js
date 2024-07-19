@@ -37,6 +37,7 @@ const SymbolsDataTable = () => {
       dispatch(GetSymbols());
     }
   }, [dispatch, refresh]);
+
   const onDeleting = (data) => {
     setIdToDelete(data.id);
     setItemToDelete(data.symbol);   // Relative variables

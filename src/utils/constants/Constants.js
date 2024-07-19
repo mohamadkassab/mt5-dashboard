@@ -726,8 +726,15 @@ export const SymbolDataColumns = [
   },
   {
     dataField: "server_id",
+    caption: "Server Id",
+    alignment: "center",
+    hideColumn: true,
+  },
+  {
+    dataField: "server_name",
     caption: "Server Name",
-    alignment: "center"
+    alignment: "center",
+
   },
 ];
 
