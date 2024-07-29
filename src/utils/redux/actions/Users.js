@@ -107,6 +107,7 @@ export const EditUser = (params) => {
       const apiIp = process.env.REACT_APP_API_IP;
       const apiPort = process.env.REACT_APP_API_PORT;
       const authorizationToken = localStorage.getItem(ATFXTOKEN);
+      params.is_active = params?.is_active === "Active" ? true : false;
       const {id, ...restParams} = params;
       const response = await axios.put(
         `${apiIp}:${apiPort}${API_USER_EDIT}${id}`,

@@ -174,7 +174,7 @@ console.log(symbolSuffixes);
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={columns[4].caption}
+                  label={columns[5].caption}
                   variant="outlined"
                   required
                 />
@@ -289,7 +289,6 @@ console.log(symbolSuffixes);
                             }
                         })}
                          
-
                           getOptionLabel={(option) => option.Symbol}
                           value={
                             symbols.find(

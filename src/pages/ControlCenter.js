@@ -45,6 +45,7 @@ const ControlCenter = () => {
       {location.pathname === "/roles" ? <RolesDataTable /> : <></>}
       {location.pathname === "/types" ? <TypesDataTable /> : <></>}
       {location.pathname === "/symbols" ? <SymbolsDataTable /> : <></>}
+      {location.pathname === "/dashboard" ? <>Dashboard</> : <></>}
     </DefaultLayout>
   );
 };

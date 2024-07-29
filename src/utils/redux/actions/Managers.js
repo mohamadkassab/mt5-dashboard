@@ -143,7 +143,9 @@ export const EditManager = (params) => {
       const apiIp = process.env.REACT_APP_API_IP;
       const apiPort = process.env.REACT_APP_API_PORT;
       const authorizationToken = localStorage.getItem(ATFXTOKEN);
+    
       const {id, ...restParams} = params;
+      
       const response = await axios.put(
         `${apiIp}:${apiPort}${API_MANAGER}${id}`,
         restParams,
