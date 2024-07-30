@@ -37,11 +37,6 @@ const SymbolsEditForm = ({ editFormVisibility, data, refreshPage }) => {
   const [symbolSuffixes, setSymbolSuffixes] = useState([...mt5SymbolSuffixes]);
   const [symbols, setSymbols] = React.useState([]);
 
-  
-
-
-
-
   const [formData, setFormData] = useState({
     [columns[0].dataField]: data[[columns[0].dataField]],
     [columns[1].dataField]: data[[columns[1].dataField]],
@@ -50,9 +45,6 @@ const SymbolsEditForm = ({ editFormVisibility, data, refreshPage }) => {
     [columns[3].dataField]: data[[columns[3].dataField]],
   });
   const serverId = formData[columns[4].dataField];
-
-
-
 
   React.useEffect(() => {
 
@@ -66,15 +58,13 @@ const SymbolsEditForm = ({ editFormVisibility, data, refreshPage }) => {
 }, [serverId]);
 
 
-React.useEffect(() => {
+  React.useEffect(() => {
 
-  if (success) {
+    if (success) {
 
-    refreshPage();
-  }
-}, [success]);
-
-
+      refreshPage();
+    }
+  }, [success]);
 
 
   const handleSubmit = async (e) => {
@@ -184,7 +174,7 @@ React.useEffect(() => {
             />
           </FormControl>
 
-          <FormControl sx={{ width: "100%" }} variant="outlined">
+          <FormControl colSpan={2} sx={{ width: "100%", gridColumn: 'span 2' }} variant="outlined">
             <Autocomplete
               id="outlined-autocomplete"
               options={symbols}
@@ -214,7 +204,7 @@ React.useEffect(() => {
             />
           </FormControl>
 
-          <TextField
+          {/* <TextField
             type="number"
             variant="outlined"
             required
@@ -222,7 +212,7 @@ React.useEffect(() => {
             label={columns[3].caption}
             value={formData[columns[3].dataField]}
             onChange={handleChange}
-          />
+          /> */}
 
           <div className="col-span-2 gridContainer">
             <div>
@@ -320,7 +310,25 @@ React.useEffect(() => {
                           )}
                         />
                       </FormControl>
-                      <div className="flex w-full">
+                      <ListItemButton
+                          key={`listitembutton-${index}`}
+                          sx={{
+                            margin: "1rem",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          onClick={(event) => removeSuffix(index)}
+                        >
+                          <ListItemIcon
+                            sx={{
+                              minWidth: 0,
+                              justifyContent: "initial",
+                            }}
+                          >
+                            <RemoveCircleOutlineIcon />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      {/* <div className="flex w-full">
                         <TextField
                           type="number"
                           required
@@ -350,7 +358,7 @@ React.useEffect(() => {
                             <RemoveCircleOutlineIcon />
                           </ListItemIcon>
                         </ListItemButton>
-                      </div>
+                      </div> */}
                     </div>
                   );
                 })}

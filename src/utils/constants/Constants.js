@@ -723,6 +723,7 @@ export const SymbolDataColumns = [
     dataField: "multiplier",
     caption: "Multiplier",
     alignment: "center",
+    hideColumn: true,
   },
   {
     dataField: "server_id",

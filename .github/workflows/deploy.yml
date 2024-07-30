@@ -39,8 +39,6 @@ jobs:
           CI: ""
           REACT_APP_API_IP: ${{ secrets.REACT_APP_API_IP }}
           REACT_APP_API_PORT: ${{ secrets.REACT_APP_API_PORT }}
-          REACT_APP_WS_IP: ${{ secrets.REACT_APP_WS_IP }}
-          REACT_APP_WS_PORT: ${{ secrets.REACT_APP_WS_PORT }}
         run: |
           npm run build
 

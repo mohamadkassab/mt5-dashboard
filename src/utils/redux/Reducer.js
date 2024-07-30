@@ -73,6 +73,7 @@ const initialState = {
   isAuthenticated: localStorage.getItem(ATFXTOKEN) || false,
   blur: false,
   loading: false,
+  loadingTimes:0,
   success: false,
   error: false,
 };
@@ -83,31 +84,37 @@ const reducer = produce((draft, action) => {
     // GLOBAL
     case EL_REQUEST:
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case EL_SUCCESS:
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case EL_FAILURE:
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     case SEL_REQUEST:
       draft.success = false;
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case SEL_SUCCESS:
       draft.success = true;
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case SEL_FAILURE:
       draft.success = false;
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     case ISAUTHENTICATED_REQUEST:
@@ -125,238 +132,280 @@ const reducer = produce((draft, action) => {
     case GET_ADMIN_REQUEST:
       draft.admins = [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_ADMIN_SUCCESS:
       draft.admins = action.payload.map((admin) => admin);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_ADMIN_FAILURE:
       draft.admins = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
    
     // USER
     case GET_USER_REQUEST:
       draft.users = [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_USER_SUCCESS:
       draft.users = action.payload.map((user) => user);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_USER_FAILURE:
       draft.users = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // ROLE
     case GET_ROLE_REQUEST:
       draft.roles = [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_ROLE_SUCCESS:
       draft.roles = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_ROLE_FAILURE:
       draft.roles = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // TYPE
     case GET_TYPE_REQUEST:
       draft.types = [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_TYPE_SUCCESS:
       draft.types = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_TYPE_FAILURE:
       draft.types = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // CONFIGURATIONS
     case GET_CONFIGURATION_REQUEST:
       draft.configurations = [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_CONFIGURATION_SUCCESS:
       draft.configurations = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_CONFIGURATION_FAILURE:
       draft.configurations = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // PERMISSIONS
     case GET_PERMISSION_REQUEST:
       draft.permissions = [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_PERMISSION_SUCCESS:
       draft.permissions = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_PERMISSION_FAILURE:
       draft.permissions = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;    
 
      // MANAGERS
     case GET_MANAGER_REQUEST:
       draft.managers = [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_MANAGER_SUCCESS:
       draft.managers = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_MANAGER_FAILURE:
       draft.managers = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // MT5 MANAGERS
     case GET_MT5MANAGER_REQUEST:
       draft.mt5Managers = [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_MT5MANAGER_SUCCESS:
       draft.mt5Managers = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_MT5MANAGER_FAILURE:
       draft.mt5Managers = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // COVERAGESERVERS
     case GET_COVERAGESERVER_REQUEST:
       draft.coverageServers = [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_COVERAGESERVER_SUCCESS:
       draft.coverageServers = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_COVERAGESERVER_FAILURE:
       draft.coverageServers = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // COVERAGEACCOUNTS
     case GET_COVERAGEACCOUNT_REQUEST:
       draft.coverageAccounts= [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_COVERAGEACCOUNT_SUCCESS:
       draft.coverageAccounts = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_COVERAGEACCOUNT_FAILURE:
       draft.coverageAccounts = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // MT5SYMBOL
     case GET_MT5SYMBOL_REQUEST:
       draft.mt5Symbols= [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_MT5SYMBOL_SUCCESS:
       draft.mt5Symbols = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_MT5SYMBOL_FAILURE:
       draft.mt5Symbols = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // SYMBOL
     case GET_SYMBOL_REQUEST:
       draft.symbols= [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_SYMBOL_SUCCESS:
       draft.symbols = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_SYMBOL_FAILURE:
       draft.symbols = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // SUFFIX
     case GET_SUFFIX_REQUEST:
       draft.suffixes= [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_SUFFIX_SUCCESS:
       draft.suffixes = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_SUFFIX_FAILURE:
       draft.suffixes = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
     // SYMBOL SUFFIX
     case GET_SYMBOLSUFFIXES_REQUEST:
       draft.symbolSuffixes= [];
       draft.error = false;
-      draft.loading = true;
+      if(draft.loadingTimes === 0) { draft.loading = true; }
+      draft.loadingTimes +=1;
       break;
     case GET_SYMBOLSUFFIXES_SUCCESS:
       draft.symbolSuffixes = action.payload.map((item) => item);
       draft.error = false;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
     case GET_SYMBOLSUFFIXES_FAILURE:
       draft.symbolSuffixes = [];
       draft.error = true;
-      draft.loading = false;
+      if(draft.loadingTimes === 1){ draft.loading = false; }
+      draft.loadingTimes -=1;
       break;
 
 

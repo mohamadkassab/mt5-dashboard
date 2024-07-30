@@ -182,7 +182,7 @@ console.log(symbolSuffixes);
             />
           </FormControl>
 
-          <FormControl sx={{ width: "100%" }} variant="outlined">
+          <FormControl sx={{ width: "100%", gridColumn: 'span 2'  }} variant="outlined">
             <Autocomplete
               id="outlined-autocomplete"
               options={symbols}
@@ -212,7 +212,7 @@ console.log(symbolSuffixes);
             />
           </FormControl>
 
-          <TextField
+          {/* <TextField
             type="number"
             variant="outlined"
             required
@@ -220,7 +220,7 @@ console.log(symbolSuffixes);
             label={columns[3].caption}
             value={formData[columns[3].dataField]}
             onChange={handleChange}
-          />
+          /> */}
 
           <div className="col-span-2 gridContainer">
             <ListItemButton
@@ -313,7 +313,25 @@ console.log(symbolSuffixes);
                           )}
                         />
                       </FormControl>
-                      <div className="flex w-full">
+                      <ListItemButton
+                          key={`listitembutton-${index}`}
+                          sx={{
+                            margin: "1rem",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          onClick={(event) => removeSuffix(index)}
+                        >
+                          <ListItemIcon
+                            sx={{
+                              minWidth: 0,
+                              justifyContent: "initial",
+                            }}
+                          >
+                            <RemoveCircleOutlineIcon />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      {/* <div className="flex w-full">
                         <TextField
                           type="number"
                           required
@@ -343,7 +361,7 @@ console.log(symbolSuffixes);
                             <RemoveCircleOutlineIcon />
                           </ListItemIcon>
                         </ListItemButton>
-                      </div>
+                      </div> */}
                     </div>
                   );
                 })}

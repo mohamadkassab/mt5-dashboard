@@ -8,7 +8,7 @@ const LoadingElement = ({ isDrawerOpen, componentName }) => {
     : false;
   const isSemiDrawer = isDrawerOpen ? false : isLogin ? false : true;
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center realtive z-50">
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2   p-4 rounded-lg ">
         <CircularProgress
           color="primary"

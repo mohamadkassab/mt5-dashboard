@@ -119,7 +119,7 @@ const SymbolsDataTable = () => {
         <CreateButton onClick={onInserting}/>
         </div>
 
-        <DataGridTable data={data}  onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
+        <DataGridTable data={data} onExporting={onExporting} allowedPageSizes={allowedPageSizes} onEditing={onEditing} onDeleting={onDeleting} columns={columns}/>
       </div>
     </div>
   );
