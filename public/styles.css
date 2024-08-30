@@ -22112,3 +22112,11 @@ input.dx-hidden {
   background: rgba(0,0,0,.01);
   opacity: .01;
 }
+
+* {
+  caret-color: transparent !important;
+}
+
+input, textarea {
+  caret-color: black !important; 
+}
